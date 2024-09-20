@@ -7,7 +7,7 @@ import { Input, List } from '@ant-design/react-native'
 import { Avatar } from '@rneui/themed';
 import Carousel from '../components/carousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import Entypo from '@expo/vector-icons/Entypo';
 const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -102,6 +102,26 @@ const Home = () => {
                                             style={styles.sliderImage}
                                             source={{ uri: item }}
                                         />
+                                        <View style={styles.comment}>
+                                            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 7 }}>
+                                                Malaga, Spain
+                                            </Text>
+                                            <Text style={{ fontSize: 14, color: 'gray', marginBottom: 4 }}>
+                                                Our a visit to Malaga was part of a cruise of the Western Med...
+                                            </Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                                <Avatar
+                                                    size={42}
+                                                    rounded
+                                                    source={{ uri: "https://randomuser.me/api/portraits/men/8.jpg" }}
+                                                />
+                                                <Text style={{ marginLeft: 5, fontSize: 17, fontWeight: 700 }}>Alan Watt</Text>
+                                                <Text style={{ color: 'gray' }}>
+                                                    <Entypo name="dot-single" size={18} color="black" />
+                                                    5,3K views
+                                                </Text>
+                                            </View>
+                                        </View>
                                     </View>
                                 )
                             }}
@@ -245,11 +265,11 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     sliderItem: {
-        width: 250,
+        width: 280,
         height: 350
     },
     sliderImage: {
-        width: 230,
+        width: 270,
         height: 340,
         borderRadius: 20
     },
@@ -272,6 +292,20 @@ const styles = StyleSheet.create({
     },
     textSelected: {
         color: 'white'
+    },
+    comment: {
+        position: 'absolute',
+        bottom: 30,
+        backgroundColor: 'white',
+        height: 150,
+        width: 240,
+        left: '-50%',
+        transform: [
+            { translateX: -125 },
+        ],
+        borderRadius: 20,
+        padding: 14,
+
     }
 
 })

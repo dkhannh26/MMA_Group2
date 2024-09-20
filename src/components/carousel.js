@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import Animated, {
@@ -7,6 +7,9 @@ import Animated, {
     withTiming,
     runOnJS,
 } from "react-native-reanimated";
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { useNavigation } from "@react-navigation/native";
 
 function Item({ index, perfomSwipe, color, length }) {
     var offsetX = useSharedValue(0);
@@ -48,6 +51,7 @@ function Item({ index, perfomSwipe, color, length }) {
             backgroundColor: color,
         };
     });
+    const navigator = useNavigation()
 
     return (
         <GestureDetector gesture={panGesture}>
@@ -56,6 +60,25 @@ function Item({ index, perfomSwipe, color, length }) {
                     source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }}
                     style={styles.image}
                 />
+                <TouchableOpacity
+                    onPress={() => { navigator.navigate('LocationDetail') }}
+                >
+                    <View style={styles.location}>
+                        <View>
+                            <Text style={{ paddingLeft: 5, fontSize: 24, fontWeight: 'bold' }}>
+                                Paris
+                            </Text>
+                            <View style={{ display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "row" }}>
+                                <EvilIcons name="location" size={18} color="black" />
+                                <Text style={{ color: 'gray' }}>
+                                    France
+                                </Text>
+                            </View>
+
+                        </View>
+                        <FontAwesome5 name="arrow-right" size={28} color="black" />
+                    </View>
+                </TouchableOpacity>
             </Animated.View>
         </GestureDetector>
     );
@@ -119,4 +142,24 @@ var styles = StyleSheet.create({
         alignItems: "center",
         top: "5%",
     },
+    location: {
+        justifyContent: "space-between",
+        alignItems: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        position: 'absolute',
+        bottom: 20,
+        width: 160,
+        height: 70,
+        left: '50%',
+        transform: [
+            { translateX: -75 },
+            { translateY: -20 },
+        ],
+        borderRadius: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+
+
+    }
 });
