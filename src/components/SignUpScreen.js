@@ -11,13 +11,22 @@ const SignUpScreen = () => {
   const [retypePassword, setRetypePassword] = useState('');
   const [isSelected, setSelection] = useState(false);
 
+  const handleSignUp = () => {
+    if (name && email && password && retypePassword && isSelected) {
+      navigation.navigate('Verify');
+    } else {
+      alert('Please fill all fields and accept the terms of service.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+      {/*
       <Image
         source={require('../../assets/image/dotai2.png')}
         style={styles.icon}
-      />
+      />*/}
       <Text style={styles.headerText}>Let's Get Started</Text>
       <Text style={styles.subText}>Create your new account and find more beautiful destinations</Text>
 
@@ -64,7 +73,7 @@ const SignUpScreen = () => {
         <Text style={styles.checkboxLabel}>Accept terms of service</Text>
       </View>
 
-      <TouchableOpacity style={styles.signUpButton}>
+      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
 
@@ -83,12 +92,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 25,
-    marginTop: 50,
+    // marginTop: 50,
   },
   icon: {
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     alignSelf: 'center',
+    // marginTop: 50,
   },
   headerText: {
     fontSize: 24,
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 16,
     color: '#666',
-    marginBottom: 20,
+    // marginBottom: 20,
     textAlign: 'center',
   },
   inputLabel: {

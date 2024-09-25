@@ -240,23 +240,24 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         padding: 25,
-        marginTop: 50,
+        // marginTop: 50,
     },
     icon: {
         width: 150,
         height: 150,
         marginHorizontal: 'auto',
+        // marginTop: 50,
     },
     welcomeText: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 10,
+        // marginBottom: 10,
         textAlign: 'center'
     },
     subText: {
         fontSize: 16,
         color: '#666',
-        marginBottom: 20,
+        // marginBottom: 20,
         textAlign: 'center'
     },
     inputLabel: {
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
     checkboxContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 100,
+        // marginBottom: 100,
     },
     checkbox: {
         marginRight: 10,
@@ -295,6 +296,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         marginBottom: 20,
+        marginTop: 20,
+
     },
     loginButtonText: {
         color: '#fff',

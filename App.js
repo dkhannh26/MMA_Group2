@@ -84,6 +84,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './src/components/SplashScreen';
 import LoginScreen from './src/components/LoginScreen';
 import SignUpScreen from './src/components/SignUpScreen';
+import VerifyScreen from './src/components/VerifyScreen';
+import SuccessScreen from './src/components/SuccessScreen'; 
+import Onboarding from './src/components/Onboarding'; 
+
 
 const Stack = createNativeStackNavigator();
 
@@ -104,6 +108,21 @@ const App = () => {
         <Stack.Screen 
           name="SignUp" 
           component={SignUpScreen} 
+          // options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Verify" 
+          component={VerifyScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Success" 
+          component={SuccessScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Onboarding" 
+          component={Onboarding} 
           options={{ headerShown: false }} 
         />
       </Stack.Navigator>
@@ -112,5 +131,6 @@ const App = () => {
 };
 
 export default App;
+
 
 

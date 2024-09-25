@@ -10,7 +10,7 @@ const SplashScreen = ({ navigation }) => {
       duration: 4000, // 3 giây
       useNativeDriver: false,
     }).start(() => {
-      navigation.replace('Login'); // Chuyển sang màn hình đăng nhập sau 3 giây
+      navigation.replace('Onboarding'); // Chuyển sang màn hình đăng nhập sau 3 giây
     });
   }, [backgroundColor, navigation]);
 
