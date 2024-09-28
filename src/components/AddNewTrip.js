@@ -4,8 +4,9 @@ import { Input, Icon, Overlay, ListItem } from "@rneui/themed";
 import { Button } from "@rneui/base";
 import tailwind from "tailwind-rn";
 import { Calendar } from "react-native-calendars";
+import { format, parseISO } from "date-fns";
 
-export default function AddNewTrip() {
+export default function AddNewTrip({ navigation }) {
   const [value, setValue] = useState(0);
   const [isOverlayVisibleLocation, setOverlayVisibleLocation] = useState(false);
   const [isOverlayVisibleCalendar, setOverlayVisibleCalendar] = useState(false);
@@ -17,12 +18,29 @@ export default function AddNewTrip() {
 
   // Sample data for the list
   const data = [
-    { id: "1", title: "Can Tho", subtitle: "Description for Item 1" },
-    { id: "2", title: "Tra Vinh", subtitle: "Description for Item 2" },
-    { id: "3", title: "Soc Trang", subtitle: "Description for Item 3" },
-    { id: "4", title: "Ca Mau", subtitle: "Description for Item 4" },
-    { id: "5", title: "Sai Gon", subtitle: "Description for Item 5" },
-    { id: "6", title: "Bac Lieu", subtitle: "Description for Item 6" },
+    { id: "1", title: "Toronto, Canada", subtitle: "Description for Item 1" },
+    {
+      id: "2",
+      title: "Shillinton Pennsylvania, United States",
+      subtitle: "Description for Item 2",
+    },
+    {
+      id: "3",
+      title: "Shillelagh Province, Ireland",
+      subtitle: "Description for Item 3",
+    },
+    {
+      id: "4",
+      title: "Godshill Durham, United Kingdom",
+      subtitle: "Description for Item 4",
+    },
+    {
+      id: "5",
+      title: "Godshill Durham, India",
+      subtitle: "Description for Item 5",
+    },
+    { id: "6", title: "Tokyo", subtitle: "Description for Item 6" },
+    { id: "7", title: "Can Tho", subtitle: "Description for Item 7" },
   ];
 
   const onDayPress = (day) => {
@@ -53,16 +71,16 @@ export default function AddNewTrip() {
     }
   };
 
-  // const formatDateRange = () => {
-  //   const dates = Object.keys(markedDates);
-  //   if (dates.length < 2) {
-  //     return "";
-  //   }
-  //   const [start, end] = dates;
-  //   const startDate = format(parseISO(start), "EEE d MMM");
-  //   const endDate = format(parseISO(end), "EEE d MMM");
-  //   return `${startDate} to ${endDate}`;
-  // };
+  const formatDate = () => {
+    const dates = Object.keys(markedDates);
+    if (dates.length < 2) {
+      return "";
+    }
+    const [start, end] = dates;
+    const startDate = format(parseISO(start), "EEE, d MMM");
+    const endDate = format(parseISO(end), "EEE, d MMM");
+    return `${startDate} to ${endDate}`;
+  };
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(data);
@@ -84,20 +102,7 @@ export default function AddNewTrip() {
   };
 
   return (
-    <View>
-      {/* <View style={tailwind("flex-row items-center pt-6")}>
-        <Icon
-          type="material"
-          name="arrow-back-ios"
-          // size={35}
-          style={tailwind("pl-5")}
-        />
-        <View style={{ flex: 1, alignItems: "center", paddingTop: 10 }}>
-          <Text style={tailwind("text-lg")}>Plan a new trip</Text>
-        </View>
-        <View style={{ width: 35 }} />
-      </View> */}
-
+    <View style={styles.container}>
       <View
         style={{
           justifyContent: "center",
@@ -106,13 +111,13 @@ export default function AddNewTrip() {
         }}
       >
         <Icon
-          style={{ paddingTop: 30 }}
+          style={{ paddingTop: 20 }}
           color={"#2089dc"}
           type="font-awesome-5"
           name="plane-departure"
         />
       </View>
-      <Text style={tailwind("font-black px-4 py-4 text-2xl	text-center	")}>
+      <Text style={tailwind("font-black px-4 text-2xl	text-center	")}>
         Let's Get Start Plan A New Trip
       </Text>
       <View>
@@ -125,8 +130,8 @@ export default function AddNewTrip() {
             placeholder="type location"
             value={isChoose}
             leftIcon={{
-              type: "feather",
-              name: "map-pin",
+              type: "ionicon",
+              name: "location-sharp",
               size: 17,
               paddingLeft: 8,
             }}
@@ -135,15 +140,18 @@ export default function AddNewTrip() {
             }}
           />
           <Overlay
-            style={styles.overlay}
             isVisible={isOverlayVisibleLocation}
             onBackdropPress={() => setOverlayVisibleLocation(false)}
             overlayStyle={styles.overlay}
           >
-            <Text>Where To?</Text>
+            <Text
+              style={{ fontWeight: "bold", fontSize: 20, paddingBottom: 15 }}
+            >
+              Where To?
+            </Text>
             <Input
               inputContainerStyle={tailwind(
-                "rounded-lg border-gray-700 border-2 border-green-800	"
+                "rounded-lg border-gray-700 border-2 border-green-800"
               )}
               leftIcon={{
                 type: "ionicon",
@@ -182,17 +190,18 @@ export default function AddNewTrip() {
             "rounded-lg border-gray-700 border-2 border-green-800	"
           )}
           value={
-            !isPress
-              ? ""
-              : new Date(Object.keys(markedDates)[0]) -
-                  new Date(Object.keys(markedDates)[1]) <
-                0
-              ? Object.keys(markedDates)[0] +
-                " to " +
-                Object.keys(markedDates)[1]
-              : Object.keys(markedDates)[1] +
-                " to " +
-                Object.keys(markedDates)[0]
+            // !isPress
+            //   ? ""
+            //   : new Date(Object.keys(markedDates)[0]) -
+            //       new Date(Object.keys(markedDates)[1]) <
+            //     0
+            //   ? Object.keys(markedDates)[0] +
+            //     " to " +
+            //     Object.keys(markedDates)[1]
+            //   : Object.keys(markedDates)[1] +
+            //     " to " +
+            //     Object.keys(markedDates)[0]
+            isPress ? formatDate() : ""
           }
           placeholder="set date"
           leftIcon={{
@@ -209,7 +218,7 @@ export default function AddNewTrip() {
           isVisible={isOverlayVisibleCalendar}
           onBackdropPress={() => setOverlayVisibleCalendar(false)}
           // style={styles.overlay}
-          overlayStyle={styles.overlay}
+          overlayStyle={styles.overlayCalendar}
         >
           <Calendar
             markingType={"period"}
@@ -288,6 +297,12 @@ export default function AddNewTrip() {
           )}
           placeholder="type name"
           // leftIcon={<Icon name="user" size={24} color="black" />}
+          leftIcon={{
+            type: "material",
+            name: "short-text",
+            size: 17,
+            paddingLeft: 8,
+          }}
         />
       </View>
       <Button
@@ -312,8 +327,7 @@ export default function AddNewTrip() {
 }
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    backgroundColor: "#FFFFFF",
   },
   pl10: {
     paddingLeft: 10,
@@ -323,9 +337,14 @@ const styles = StyleSheet.create({
 
     bottom: 0,
     width: "100%",
-    minHeight: "80%", // Limit height to prevent overflow
-    // padding: 10,
-    borderRadius: 10,
+    minHeight: "70%", // Limit height to prevent overflow
+    backgroundColor: "white", // Background color to ensure touchability
+  },
+  overlayCalendar: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    minHeight: "50%", // Limit height to prevent overflow
     backgroundColor: "white", // Background color to ensure touchability
   },
 });
