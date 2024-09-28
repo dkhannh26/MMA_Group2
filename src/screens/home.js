@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TextInput, ScrollView, TouchableOpacity, SectionList } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
@@ -8,17 +8,32 @@ import { Avatar } from '@rneui/themed';
 import Carousel from '../components/carousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Entypo from '@expo/vector-icons/Entypo';
+import { Image } from '@rneui/base';
 const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
 
     const slider = [
-        'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/07/a8/2c/caption.jpg?w=1400&h=1400&s=1',
-        'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg',
-        'https://www.vietmytravel.com/wp-content/uploads/2019/04/h%E1%BB%93-ho%C3%A0n-ki%E1%BA%BFm_vietmytravel_du-l%E1%BB%8Bch-h%C3%A0-n%E1%BB%99i-e1554716923715.jpg',
-        'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg',
-        'https://i.pinimg.com/736x/0f/73/89/0f73893322f6745cf825e42232ac78ae.jpg',
-        'https://i.pinimg.com/736x/0f/73/89/0f73893322f6745cf825e42232ac78ae.jpg',
+        {
+            id: 1,
+            url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/07/a8/2c/caption.jpg?w=1400&h=1400&s=1'
+        },
+        {
+            id: 2,
+            url: 'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg'
+        },
+        {
+            id: 3,
+            url: 'https://www.vietmytravel.com/wp-content/uploads/2019/04/h%E1%BB%93-ho%C3%A0n-ki%E1%BA%BFm_vietmytravel_du-l%E1%BB%8Bch-h%C3%A0-n%E1%BB%99i-e1554716923715.jpg'
+        },
+        {
+            id: 4,
+            url: 'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg'
+        },
+
+
+
+
     ]
 
     const [filter, setFilter] = useState('popular')
@@ -94,34 +109,41 @@ const Home = () => {
                     <View style={styles.slider}>
                         <FlatList
                             data={slider}
+                            removeClippedSubviews={false}
                             horizontal={true}
+                            keyExtractor={(item, index) => index.toString()}
+                            ListFooterComponent={<View style={{ width: 20 }} />}
+                            getItemLayout={(slider, index) => (
+                                { length: 200, offset: 200 * index, index }
+                            )}
                             renderItem={({ item, index }) => {
                                 return (
                                     <View style={styles.sliderItem}>
                                         <Image
                                             style={styles.sliderImage}
-                                            source={{ uri: item }}
-                                        />
-                                        <View style={styles.comment}>
-                                            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 7 }}>
-                                                Malaga, Spain
-                                            </Text>
-                                            <Text style={{ fontSize: 14, color: 'gray', marginBottom: 4 }}>
-                                                Our a visit to Malaga was part of a cruise of the Western Med...
-                                            </Text>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                                <Avatar
-                                                    size={42}
-                                                    rounded
-                                                    source={{ uri: "https://randomuser.me/api/portraits/men/8.jpg" }}
-                                                />
-                                                <Text style={{ marginLeft: 5, fontSize: 17, fontWeight: 700 }}>Alan Watt</Text>
-                                                <Text style={{ color: 'gray' }}>
-                                                    <Entypo name="dot-single" size={18} color="black" />
-                                                    5,3K views
+                                            source={{ uri: item.url }}
+                                        >
+                                            <View style={styles.comment}>
+                                                <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 7 }}>
+                                                    Malaga, Spain
                                                 </Text>
+                                                <Text style={{ fontSize: 14, color: 'gray', marginBottom: 4 }}>
+                                                    Our a visit to Malaga was part of a cruise of the Western Med...
+                                                </Text>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                                    <Avatar
+                                                        size={42}
+                                                        rounded
+                                                        source={{ uri: "https://randomuser.me/api/portraits/men/8.jpg" }}
+                                                    />
+                                                    <Text style={{ marginLeft: 5, fontSize: 17, fontWeight: 700 }}>Alan Watt</Text>
+                                                    <Text style={{ color: 'gray' }}>
+                                                        <Entypo name="dot-single" size={18} color="black" />
+                                                        5,3K views
+                                                    </Text>
+                                                </View>
                                             </View>
-                                        </View>
+                                        </Image>
                                     </View>
                                 )
                             }}
@@ -298,11 +320,8 @@ const styles = StyleSheet.create({
         bottom: 30,
         backgroundColor: 'white',
         height: 150,
-        width: 240,
-        left: '-50%',
-        transform: [
-            { translateX: -125 },
-        ],
+        left: 15,
+        right: 15,
         borderRadius: 20,
         padding: 14,
 
