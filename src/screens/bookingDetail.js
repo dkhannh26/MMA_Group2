@@ -1,11 +1,11 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import React, { useRef, useState } from 'react';
-import { Animated, Dimensions, Image, PanResponder, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Animated, Dimensions, Image, PanResponder, StyleSheet, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { SceneMap, TabView, TabBar } from 'react-native-tab-view';
 import FirstRoute from '../components/FirstRoute';
 import SecondRoute from '../components/SecondRoute';
-import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
 import { color } from '@rneui/base';
 
@@ -149,6 +149,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#555',
     },
+    favorite: {
+        position: 'absolute',
+        top: 50,
+        right: 40,
+        zIndex: 100,
+
+    },
     image: {
         width: '100%',
         height: '47%',
@@ -198,12 +205,6 @@ const styles = StyleSheet.create({
     },
     txtextra: {
         textDecorationLine: 'underline',
-    },
-    favorite: {
-        position: 'absolute',
-        top: 50,
-        right: 40,
-        zIndex: 10,
     },
     container2: {
         flexDirection: 'row',
