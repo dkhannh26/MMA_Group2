@@ -1,66 +1,16 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-} from "react-native";
-import { Input, Icon, Overlay, ListItem } from "@rneui/themed";
-import { Button } from "@rneui/base";
-import tailwind from "tailwind-rn";
-import { Calendar } from "react-native-calendars";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { plans, dates, expenses } from "../../data";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 const Tab = createMaterialTopTabNavigator();
-import { Expenses } from "../screens/expenses";
-import { DaysPlan } from "../screens/daysPlan";
-import { Statistics } from "../screens/statistics";
-export default function UpdateTrip({ navigation }) {
-  return (
-    // <NavigationContainer>
-    <Tab.Navigator
-      style={styles.container}
-      screenOptions={{
-        tabBarLabelStyle: { fontSize: 11, fontWeight: "bold" },
-        tabBarStyle: {
-          paddingVertical: 10,
-          marginHorizontal: "3%",
-          backgroundColor: "#FFFFFF",
-          elevation: 0, // Remove shadow (Android)
-          shadowOpacity: 0, // Remove shadow (iOS)
-        },
-        tabBarItemStyle: {
-          // width: 120, // Set width of each tab
-          marginHorizontal: 10, // Spacing between tabs
-          borderRadius: 20, // Set border radius for each tab
-          // backgroundColor: "#EFEEEE",
-          overflow: "hidden", // Ensure the border radius is applied properly
-        },
-        tabBarActiveTintColor: "white",
 
-        tabBarInactiveTintColor: "#919097",
-        tabBarIndicatorStyle: {
-          backgroundColor: "black", // Set the indicator color
-          backfaceVisibility: "transparent",
-          height: "50%", // Make indicator fill the whole tab for rounded effect
-          borderRadius: 20, // Border radius to match tab item
-          marginBottom: "23%",
-        },
-        // tabBarPressColor: "#ff361d", // Press color effect
-      }}
-    >
-      <Tab.Screen name="Days Plan" component={DaysPlan} />
-      <Tab.Screen name="Expenses" component={Expenses} />
-      <Tab.Screen name="Statistics" component={Statistics} />
-    </Tab.Navigator>
-    // </NavigationContainer>
+export function Statistics() {
+  return (
+    <View style={styles.container}>
+      <Text>Statistics</Text>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFFFFF",

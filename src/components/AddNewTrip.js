@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import { Input, Icon, Overlay, ListItem } from "@rneui/themed";
 import { Button } from "@rneui/base";
-import tailwind from "tailwind-rn";
-import { Calendar } from "react-native-calendars";
+import { Icon, Input, ListItem, Overlay } from "@rneui/themed";
 import { format, parseISO } from "date-fns";
-
+import React, { useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Calendar } from "react-native-calendars";
+import tailwind from "tailwind-rn";
+import { data } from "../../data";
 export default function AddNewTrip({ navigation }) {
   const [value, setValue] = useState(0);
   const [isOverlayVisibleLocation, setOverlayVisibleLocation] = useState(false);
@@ -15,33 +15,6 @@ export default function AddNewTrip({ navigation }) {
   const [markedDates, setMarkedDates] = useState({});
   const [isPress, setPress] = useState(false);
   const [isChoose, setChoose] = useState("");
-
-  // Sample data for the list
-  const data = [
-    { id: "1", title: "Toronto, Canada", subtitle: "Description for Item 1" },
-    {
-      id: "2",
-      title: "Shillinton Pennsylvania, United States",
-      subtitle: "Description for Item 2",
-    },
-    {
-      id: "3",
-      title: "Shillelagh Province, Ireland",
-      subtitle: "Description for Item 3",
-    },
-    {
-      id: "4",
-      title: "Godshill Durham, United Kingdom",
-      subtitle: "Description for Item 4",
-    },
-    {
-      id: "5",
-      title: "Godshill Durham, India",
-      subtitle: "Description for Item 5",
-    },
-    { id: "6", title: "Tokyo", subtitle: "Description for Item 6" },
-    { id: "7", title: "Can Tho", subtitle: "Description for Item 7" },
-  ];
 
   const onDayPress = (day) => {
     const dateString = day.dateString;
@@ -77,9 +50,15 @@ export default function AddNewTrip({ navigation }) {
       return "";
     }
     const [start, end] = dates;
+
     const startDate = format(parseISO(start), "EEE, d MMM");
     const endDate = format(parseISO(end), "EEE, d MMM");
-    return `${startDate} to ${endDate}`;
+    // console.log(startDate + " " + endDate);
+    if (new Date(start) - new Date(end) < 0) {
+      return `${startDate} to ${endDate}`;
+    } else {
+      return `${endDate} to ${startDate}`;
+    }
   };
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -111,7 +90,7 @@ export default function AddNewTrip({ navigation }) {
         }}
       >
         <Icon
-          style={{ paddingTop: 20 }}
+          style={{ paddingTop: 20, paddingBottom: 10 }}
           color={"#2089dc"}
           type="font-awesome-5"
           name="plane-departure"
@@ -122,11 +101,9 @@ export default function AddNewTrip({ navigation }) {
       </Text>
       <View>
         <View>
-          <Text style={tailwind("pl-2")}>Where to</Text>
+          <Text style={styles.text}>Where to</Text>
           <Input
-            inputContainerStyle={tailwind(
-              "rounded-lg border-gray-700 border-2 border-green-800	"
-            )}
+            inputContainerStyle={styles.input}
             placeholder="type location"
             value={isChoose}
             leftIcon={{
@@ -144,15 +121,9 @@ export default function AddNewTrip({ navigation }) {
             onBackdropPress={() => setOverlayVisibleLocation(false)}
             overlayStyle={styles.overlay}
           >
-            <Text
-              style={{ fontWeight: "bold", fontSize: 20, paddingBottom: 15 }}
-            >
-              Where To?
-            </Text>
+            <Text style={styles.text}>Where To?</Text>
             <Input
-              inputContainerStyle={tailwind(
-                "rounded-lg border-gray-700 border-2 border-green-800"
-              )}
+              inputContainerStyle={styles.input}
               leftIcon={{
                 type: "ionicon",
                 name: "search-outline",
@@ -184,25 +155,10 @@ export default function AddNewTrip({ navigation }) {
             />
           </Overlay>
         </View>
-        <Text style={tailwind("pl-2")}>Trip date</Text>
+        <Text style={styles.text}>Trip date</Text>
         <Input
-          inputContainerStyle={tailwind(
-            "rounded-lg border-gray-700 border-2 border-green-800	"
-          )}
-          value={
-            // !isPress
-            //   ? ""
-            //   : new Date(Object.keys(markedDates)[0]) -
-            //       new Date(Object.keys(markedDates)[1]) <
-            //     0
-            //   ? Object.keys(markedDates)[0] +
-            //     " to " +
-            //     Object.keys(markedDates)[1]
-            //   : Object.keys(markedDates)[1] +
-            //     " to " +
-            //     Object.keys(markedDates)[0]
-            isPress ? formatDate() : ""
-          }
+          inputContainerStyle={styles.input}
+          value={isPress ? formatDate() : ""}
           placeholder="set date"
           leftIcon={{
             type: "font-awesome",
@@ -253,14 +209,12 @@ export default function AddNewTrip({ navigation }) {
             }}
           />
         </Overlay>
-        <Text style={tailwind("pl-2")}>Add guest list</Text>
+        <Text style={styles.text}>Add guest list</Text>
         {/* <View style={styles.container}> */}
         {/* <Button title="-" onPress={decrement} /> */}
         <Input
           // multiline={true}
-          inputContainerStyle={tailwind(
-            "rounded-lg border-gray-700 border-2 border-green-800	"
-          )}
+          inputContainerStyle={styles.input}
           rightIcon={{
             type: "ionic",
             name: "add-circle-outline",
@@ -290,11 +244,9 @@ export default function AddNewTrip({ navigation }) {
         />
         {/* <Button title="+" onPress={increment} /> */}
         {/* </View> */}
-        <Text style={tailwind("pl-2")}>Trip name</Text>
+        <Text style={styles.text}>Trip name</Text>
         <Input
-          inputContainerStyle={tailwind(
-            "rounded-lg border-gray-700 border-2 pl-2"
-          )}
+          inputContainerStyle={styles.input}
           placeholder="type name"
           // leftIcon={<Icon name="user" size={24} color="black" />}
           leftIcon={{
@@ -305,22 +257,12 @@ export default function AddNewTrip({ navigation }) {
           }}
         />
       </View>
+
       <Button
         title="Let's Start your Plan"
-        buttonStyle={{
-          backgroundColor: "rgba(39, 39, 39, 1)",
-          justifyContent: "center", // Căn giữa nội dung theo chiều dọc
-          alignItems: "center", // Căn giữa nội dung theo chiều ngang
-        }}
-        containerStyle={{
-          justifyContent: "center", // Căn giữa container theo chiều dọc
-          alignItems: "center", // Căn giữa container theo chiều ngang
-        }}
-        titleStyle={{
-          color: "white",
-          marginHorizontal: 20,
-          textAlign: "center", // Căn giữa text bên trong button
-        }}
+        // onPress={() => navigation.navigate("My Trips")}
+        buttonStyle={styles.button}
+        titleStyle={styles.buttonText}
       />
     </View>
   );
@@ -328,6 +270,16 @@ export default function AddNewTrip({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFFFFF",
+  },
+  button: {
+    backgroundColor: "black",
+    borderRadius: 5,
+    marginHorizontal: "5%",
+    marginVertical: 5,
+  },
+  buttonText: {
+    color: "white",
+    marginHorizontal: 20,
   },
   pl10: {
     paddingLeft: 10,
@@ -346,5 +298,18 @@ const styles = StyleSheet.create({
     width: "100%",
     minHeight: "50%", // Limit height to prevent overflow
     backgroundColor: "white", // Background color to ensure touchability
+  },
+  input: {
+    // rounded-lg border-gray-700 border-2 pl-2
+    borderRadius: 8,
+    // borderColor: rgb(55, 65, 81),
+    paddingLeft: 8,
+    borderWidth: 1,
+  },
+  text: {
+    // fontWeight: "bold",
+    fontSize: 15,
+    paddingLeft: 10,
+    paddingBottom: 5,
   },
 });

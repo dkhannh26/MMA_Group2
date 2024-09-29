@@ -60,7 +60,7 @@ export default function MyTrip({ navigation }) {
         <View style={styles.tripCard1}>
           <ImageBackground
             source={{
-              uri: "https://media.istockphoto.com/id/1179412710/vi/anh/phong-c%E1%BA%A3nh-n%C3%BAi-non-tuy%E1%BB%87t-%C4%91%E1%BA%B9p-v%C3%A0-m%E1%BA%B7t-tr%E1%BB%9Di-m%E1%BB%8Dc.jpg?s=612x612&w=0&k=20&c=AyANbX0vxbDaP60RAaOqp8UmBdVL1C-wNbalVQaKzFg=",
+              uri: "https://m.yodycdn.com/blog/phong-canh-dep-o-viet-nam-yody-vn-3.jpg",
             }}
             style={styles.image1}
           >
