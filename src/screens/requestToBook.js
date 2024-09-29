@@ -30,33 +30,33 @@ const RequestToBook = () => {
                 <View style={styles.infoContainer}>
                     <Text style={[styles.h1, styles.mg5]}>Your trip</Text>
                     <Text style={[styles.h2, styles.mg5]}>Dates</Text>
-                    <Text style={[styles.mg5]}>Sun,16 Aug to Wed, 19 Aug</Text>
+                    <Text style={[styles.mg5, styles.txtcolor]}>Sun,16 Aug to Wed, 19 Aug</Text>
                     <Text style={[styles.h2, styles.mg5]}>Guests</Text>
-                    <Text style={[styles.mg5]}>2 guest</Text>
+                    <Text style={[styles.mg5, styles.txtcolor]}>2 guest</Text>
                 </View>
             </View>
             <View style={styles.container2}>
                 <View style={styles.infoContainer}>
                     <Text style={[styles.h1, styles.mg5]}>Price details</Text>
                     <View style={styles.star}>
-                        <Text style={[styles.mg5]}>$160 x 2 nights <EvilIcons name="question" size={24} color="black" /></Text>
+                        <Text style={[styles.mg5, styles.txtcolor]}>$160 x 2 nights <EvilIcons name="question" size={24} color="black" /></Text>
                         <Text style={styles.price}>$320</Text>
                     </View>
                     <View style={styles.star}>
-                        <Text style={[styles.mg5]}>Cleaning fee <EvilIcons name="question" size={24} color="black" /></Text>
+                        <Text style={[styles.mg5, styles.txtcolor]}>Cleaning fee <EvilIcons name="question" size={24} color="black" /></Text>
                         <Text style={styles.price}>$40</Text>
                     </View>
                     <View style={styles.star}>
-                        <Text style={[styles.mg5]}>Service fee <EvilIcons name="question" size={24} color="black" /></Text>
+                        <Text style={[styles.mg5, styles.txtcolor]}>Service fee <EvilIcons name="question" size={24} color="black" /></Text>
                         <Text style={styles.price}>$10</Text>
                     </View>
                     <View style={styles.star}>
-                        <Text style={[styles.mg5]}>Occupacy taxes & fees <EvilIcons name="question" size={24} color="black" /></Text>
+                        <Text style={[styles.mg5, styles.txtcolor]}>Occupacy taxes & fees <EvilIcons name="question" size={24} color="black" /></Text>
                         <Text style={styles.price}>$25</Text>
                     </View>
                     <View style={styles.star}>
                         <Text style={[styles.h2, styles.mg5]}>Total(USD)</Text>
-                        <Text style={styles.price}>$450</Text>
+                        <Text style={[styles.price, styles.h2]}>$450</Text>
                     </View>
                 </View>
             </View>
@@ -212,6 +212,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 10,
         top: 10
+    },
+    txtcolor: {
+        color: '#888'
     },
 });
 

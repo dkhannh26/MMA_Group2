@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
 const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -14,8 +16,7 @@ const Home = () => {
             name: 'Style Lagoon Residences And Suites',
             image: 'https://randomuser.me/api/portraits/men/8.jpg',
             price: '$1450',
-            rating: '4.0',
-            stars: '⭐⭐⭐⭐',
+            rating: '2.0',
             type: '2-star hotel',
         },
         {
@@ -23,8 +24,7 @@ const Home = () => {
             name: 'MEME Lagoon Residences And Suites',
             image: 'https://randomuser.me/api/portraits/men/8.jpg',
             price: '$1450',
-            rating: '4.0',
-            stars: '⭐⭐⭐⭐',
+            rating: '5.0',
             type: '2-star hotel',
         },
         {
@@ -32,8 +32,7 @@ const Home = () => {
             name: 'Style Lagoon Residences And Suites',
             image: 'https://randomuser.me/api/portraits/men/8.jpg',
             price: '$1450',
-            rating: '4.0',
-            stars: '⭐⭐⭐⭐',
+            rating: '1.0',
             type: '2-star hotel',
         },
         {
@@ -42,7 +41,6 @@ const Home = () => {
             image: 'https://randomuser.me/api/portraits/men/8.jpg',
             price: '$1450',
             rating: '4.0',
-            stars: '⭐⭐⭐⭐',
             type: '2-star hotel',
         },
         {
@@ -51,7 +49,6 @@ const Home = () => {
             image: 'https://randomuser.me/api/portraits/men/8.jpg',
             price: '$1450',
             rating: '4.0',
-            stars: '⭐⭐⭐⭐',
             type: '2-star hotel',
         },
         {
@@ -60,18 +57,35 @@ const Home = () => {
             image: 'https://randomuser.me/api/portraits/men/8.jpg',
             price: '$1450',
             rating: '4.0',
-            stars: '⭐⭐⭐⭐',
             type: '2-star hotel',
         },
     ]
     const filteredHotels = hotels.filter(hotel =>
         hotel.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    const renderStars = (rating) => {
+        const filledStars = Math.floor(rating);
+        const totalStars = 5;
+
+        return (
+            <View style={styles.starsContainer}>
+                {[...Array(totalStars)].map((_, index) => (
+                    <AntDesign
+                        key={index}
+                        name={index < filledStars ? "star" : "staro"}
+                        size={16}
+                        color={index < filledStars ? "gold" : "gray"}
+                    />
+                ))}
+            </View>
+        );
+    };
     const HotelCard = ({ hotel }) => (
         <View style={styles.card}>
             <View style={styles.imageContainer}>
                 <Image source={{ uri: hotel.image }} style={styles.image} />
                 <View style={styles.priceTag}>
+                    <AntDesign style={{ marginRight: 10 }} name="wallet" size={24} color="black" />
                     <Text style={styles.priceText}>{hotel.price}</Text>
                 </View>
             </View>
@@ -80,7 +94,7 @@ const Home = () => {
                 <Text style={styles.hotelName}>{hotel.name}</Text>
                 <View style={styles.ratingContainer}>
                     <Text style={styles.rating}>{hotel.rating}</Text>
-                    <Text style={styles.stars}>{hotel.stars}</Text>
+                    <Text style={styles.stars}>{renderStars(hotel.rating)}</Text>
                     <Text style={styles.hotelType}>{hotel.type}</Text>
                 </View>
             </View>
@@ -89,42 +103,44 @@ const Home = () => {
 
     const navigator = useNavigation()
     return (
-        <View style={styles.bg}>
-            <ScrollView>
-                <View style={{ paddingHorizontal: 20 }}>
-                    <List.Item style={{ borderRadius: 30 }}>
-                        <Input
-                            style={{ borderRadius: 100 }}
-                            prefix={<Feather name="search" size={24} color="black" />}
-                            suffix={<Fontisto name="nav-icon-list-a" size={17} color="black" />}
-                            placeholder="Discover a city"
-                            value={searchQuery}
-                            onChangeText={text => setSearchQuery(text)}
-                        />
-                    </List.Item>
-                </View>
-                <FlatList
-                    data={filteredHotels}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-                            onPress={() => {
-                                navigator.navigate('Booking', {
-                                    imageUri: item.image,
-                                    price: item.price,
-                                    hotelName: item.name,
-                                    rating: item.rating,
-                                    stars: item.stars,
-                                    hotelType: item.type,
-                                });
-                            }}
-                        >
-                            <HotelCard hotel={item} />
-                        </TouchableOpacity>
-                    )}
-                    keyExtractor={(item) => item.id}
-                />
-            </ScrollView>
-        </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.bg}>
+                <ScrollView>
+                    <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+                        <List.Item style={{ borderRadius: 30 }}>
+                            <Input
+                                style={{ borderRadius: 100 }}
+                                prefix={<Feather name="search" size={24} color="black" />}
+                                suffix={<Fontisto name="nav-icon-list-a" size={17} color="black" />}
+                                placeholder="Discover a city"
+                                value={searchQuery}
+                                onChangeText={text => setSearchQuery(text)}
+                            />
+                        </List.Item>
+                    </View>
+                    <FlatList
+                        data={filteredHotels}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigator.navigate('Booking', {
+                                        imageUri: item.image,
+                                        price: item.price,
+                                        hotelName: item.name,
+                                        rating: item.rating,
+                                        stars: item.stars,
+                                        hotelType: item.type,
+                                    });
+                                }}
+                            >
+                                <HotelCard hotel={item} />
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={(item) => item.id}
+                    />
+                </ScrollView>
+            </View>
+        </SafeAreaView>
     );
 };
 
@@ -248,6 +264,8 @@ const styles = StyleSheet.create({
         height: 200,  // Chiều cao ảnh
     },
     priceTag: {
+        flexDirection: 'row',
+        alignItems: 'center',
         position: 'absolute',
         bottom: 10,
         left: 10,
@@ -289,6 +307,10 @@ const styles = StyleSheet.create({
         alignItems: 'left',
         fontSize: 14,
         color: '#888',
+    },
+    starsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 
 

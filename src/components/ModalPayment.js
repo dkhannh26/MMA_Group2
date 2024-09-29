@@ -5,23 +5,6 @@ import { PaperProvider, RadioButton } from 'react-native-paper';
 
 const PaymentModal = ({ isVisible, onClose }) => {
     const [checked, setChecked] = useState('PayPal');
-    // const radioButtons = useMemo(() => ([
-    //     {
-    //         id: '1',
-    //         label: 'Cash on pay',
-    //         value: 'Cash on pay'
-    //     },
-    //     {
-    //         id: '2',
-    //         label: 'PayPal',
-    //         value: 'PayPal'
-    //     },
-    //     {
-    //         id: '3',
-    //         label: 'Credit or debit card',
-    //         value: 'Credit or debit card'
-    //     }
-    // ]), []);
     return (
         <PaperProvider>
             <Modal isVisible={isVisible} onBackdropPress={onClose}>

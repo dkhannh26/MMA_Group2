@@ -1,14 +1,13 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import React, { useRef, useState } from 'react';
-import { Animated, Dimensions, Image, PanResponder, Text, View, useWindowDimensions } from 'react-native';
+import { Animated, Dimensions, Image, PanResponder, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SceneMap, TabView, TabBar } from 'react-native-tab-view';
 import FirstRoute from '../components/FirstRoute';
 import SecondRoute from '../components/SecondRoute';
-
-import styles from '../../assets/css/styles.js';
 import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
+import { color } from '@rneui/base';
 
 
 const DraggableForm = () => {
@@ -87,9 +86,9 @@ const DraggableForm = () => {
                     {...panResponder.panHandlers}
                 >
                     <Text style={[styles.h1, styles.mg5, styles.box2]}>Star Pacific Sylhet</Text>
-                    <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={{ alignItems: 'center', flexDirection: 'row', paddingLeft: 15 }}>
                         <EvilIcons name="location" size={24} color="black" />
-                        <Text style={styles.mg5}>
+                        <Text style={[styles.mg5, styles.txtcolor]}>
                             Bangladesh
                         </Text>
                     </View>
@@ -101,10 +100,10 @@ const DraggableForm = () => {
                         renderTabBar={props => (
                             <TabBar
                                 {...props}
-                                style={{ backgroundColor: 'white' }} // Chỉnh màu nền của TabBar
-                                indicatorStyle={{ backgroundColor: '#FF361D' }} // Chỉnh màu của indicator (thanh gạch chân tab đang chọn)
-                                inactiveColor="black" // Màu đen khi tab không được chọn
-                                labelStyle={{ color: '#FF361D' }} // Chỉnh màu chữ của tab
+                                style={{ backgroundColor: 'white' }}
+                                indicatorStyle={{ backgroundColor: '#FF361D', marginLeft: '16%', width: '19%' }}
+                                inactiveColor="#888"
+                                labelStyle={{ color: '#FF361D' }}
                             />
                         )}
                     />
@@ -113,5 +112,156 @@ const DraggableForm = () => {
         </GestureHandlerRootView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f4f4f4',
+    },
+    mainContent: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    formContainer: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    dragArea: {
+        height: 40,
+        backgroundColor: '#ccc',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    dragText: {
+        fontSize: 16,
+        color: '#555',
+    },
+    image: {
+        width: '100%',
+        height: '47%',
+        position: 'absolute',
+        top: 0
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 10,
+        alignItems: 'center',
+    },
+    box: {
+        flex: 1,
+        margin: 5,
+        padding: 3,
+        paddingLeft: 15
+    },
+    box2: {
+        margin: 2,
+        padding: 5,
+        paddingLeft: 15
+    },
+    h1: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    h2: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    mg5: {
+        margin: 10
+    },
+    button: {
+        backgroundColor: 'black',
+        borderRadius: 10,
+        marginHorizontal: 70,
+        overflow: 'hidden',
+        padding: 12,
+    },
+    txtButton: {
+        color: 'white', textAlign: 'center', fontWeight: 'bold'
+    },
+    boxextra: {
+        padding: 20,
+        backgroundColor: "gray",
+    },
+    txtextra: {
+        textDecorationLine: 'underline',
+    },
+    favorite: {
+        position: 'absolute',
+        top: 50,
+        right: 40,
+        zIndex: 10,
+    },
+    container2: {
+        flexDirection: 'row',
+        padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        margin: 10,
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
+    avatarContainer: {
+        marginRight: 10,
+    },
+    avatar: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#ccc',
+    },
+    infoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    rating: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    name: {
+        fontSize: 16,
+        fontWeight: '500',
+        marginVertical: 5,
+    },
+    feedback: {
+        fontSize: 14,
+        color: '#666',
+    },
+    input: {
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        backgroundColor: '#fff',
+        marginHorizontal: 30,
+        height: 100
+    },
+    star: {
+        flexDirection: 'row',
+    },
+    center: {
+        alignItems: 'center',
+    },
+    txtcolor: {
+        color: '#888',
+    }
+});
 
 export default DraggableForm;
