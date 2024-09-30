@@ -29,12 +29,9 @@ const Home = () => {
         {
             id: 4,
             url: 'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg'
-        },
-
-
-
-
+        }
     ]
+
 
     const [filter, setFilter] = useState('popular')
     return (
@@ -112,10 +109,6 @@ const Home = () => {
                             removeClippedSubviews={false}
                             horizontal={true}
                             keyExtractor={(item, index) => index.toString()}
-                            ListFooterComponent={<View style={{ width: 20 }} />}
-                            getItemLayout={(slider, index) => (
-                                { length: 200, offset: 200 * index, index }
-                            )}
                             renderItem={({ item, index }) => {
                                 return (
                                     <View style={styles.sliderItem}>
@@ -252,7 +245,7 @@ const styles = StyleSheet.create({
     bg: {
         // height: '100%',
         flex: 1,
-        backgroundColor: '#f7f7ea'
+        backgroundColor: '#F7F6F0'
     },
     center: {
         justifyContent: 'center',

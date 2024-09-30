@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/home';
 import Profile from '../screens/profile';
 import { Ionicons } from 'react-native-vector-icons';
-import HomeStack from './homeStack';
+import HomeStack from './home-stack';
 import Save from '../screens/save';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import DraggableForm from '../screens/nhap';
+import SaveStack from './save-stack';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,26 +49,8 @@ const Navigation = () => {
             })}
         >
             <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: "Home" }} />
-            <Tab.Screen name="Save" component={Save}
-                options={{
-                    header: () => <View style={styles.headerDetail}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 30 }}>
-                            <TouchableOpacity
-                                onPress={() => navigator.goBack()}
-                            >
-                                <View style={styles.backBtn}>
-                                    <AntDesign name="left" size={24} color="white" />
-                                </View>
-                            </TouchableOpacity>
-                            <View style={styles.likeBtn}>
-                                <LikeButton></LikeButton>
-                            </View>
-                        </View>
-                    </View>
-                }}
-
-            />
-            <Tab.Screen name="Profile" component={DraggableForm} />
+            <Tab.Screen name="Save" component={SaveStack} />
+            <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );
 };
