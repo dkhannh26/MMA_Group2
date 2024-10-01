@@ -1,15 +1,16 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Alert, Image, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const SecondRoute = ({ imageUri }) => {
+const SecondRoute = ({ rating, imageUri }) => {
     const [id, setId] = useState(2);
     const [name, setName] = useState('');
     const [star, setStar] = useState(0);
     const [feedback, setFeedback] = useState('');
     const [listFeedback, setListFeedback] = useState([
-        { id: 1, star: 5, name: 'son', feedback: 'test feedback' }
+        { id: 1, star: rating, name: 'son', feedback: 'test feedback' }
     ]);
 
     const handleSubmit = () => {

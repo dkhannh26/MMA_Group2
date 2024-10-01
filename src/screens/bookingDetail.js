@@ -14,8 +14,8 @@ const DraggableForm = () => {
     const route = useRoute();
     const { imageUri, price, hotelName, rating, stars, hotelType } = route.params;
     const renderScene = SceneMap({
-        first: () => <FirstRoute imageUri={imageUri} />,
-        second: SecondRoute,
+        first: () => <FirstRoute imageUri={imageUri} rating={rating} />,
+        second: () => <SecondRoute rating={rating} />,
     });
 
     const screenHeight = Dimensions.get('window').height;
