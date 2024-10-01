@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, FlatList, Pressable, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList, Pressable, TouchableOpacity } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Feather from '@expo/vector-icons/Feather';
@@ -12,6 +12,8 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function Profile({ navigation }) {
 
+  const [useName, setUserName] = useState("DOTAI GROUP");
+  const [career, setcareer] = useState("UI UX Designer");
   const [showAlert, setShowAlert] = useState(false);
 
   // const { navigation } = props;
@@ -70,8 +72,8 @@ export default function Profile({ navigation }) {
             <FontAwesome5 name="pen" size={10} color="black" />
           </Pressable>
         </View>
-        <Text style={styles.name}>DOTAI GROUP</Text>
-        <Text style={styles.career}>UI UX Designer</Text>
+        <Text style={styles.name}>{useName}</Text>
+        <Text style={styles.career}>{career}</Text>
       </View>
 
       <FlatList
