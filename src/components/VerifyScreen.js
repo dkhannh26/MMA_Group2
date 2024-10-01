@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar, Keyboard } from 'react-native';
 
-const VerifyScreen = ({ navigation }) => {
+const VerifyScreen = ({route, navigation }) => {
+  const { process } = route.params;
   const [code, setCode] = useState(['', '', '', '']);
   const [timer, setTimer] = useState(30);
   const inputRefs = useRef([]);
@@ -28,15 +29,18 @@ const VerifyScreen = ({ navigation }) => {
 
   const handleVerify = () => {
     if (code.every(digit => digit !== '')) {
-      // Handle verification logic here
-      navigation.navigate('Success');
+      // console.log(process)
+      if (process === 'signUp') {
+        navigation.navigate('Success');
+      } else if (process === 'forgotPassword') {
+        navigation.navigate('ResetPassword');
+      }
     } else {
       alert('Please enter all four digits.');
     }
   };
 
   const handleResendCode = () => {
-    // Handle resend code logic here
     setTimer(30);
   };
 

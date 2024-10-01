@@ -7,7 +7,7 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     Animated.timing(backgroundColor, {
       toValue: 1,
-      duration: 4000, // 3 giây
+      duration: 2000, // 3 giây
       useNativeDriver: false,
     }).start(() => {
       navigation.replace('Onboarding'); // Chuyển sang màn hình đăng nhập sau 3 giây

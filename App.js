@@ -85,9 +85,10 @@ import SplashScreen from './src/components/SplashScreen';
 import LoginScreen from './src/components/LoginScreen';
 import SignUpScreen from './src/components/SignUpScreen';
 import VerifyScreen from './src/components/VerifyScreen';
-import SuccessScreen from './src/components/SuccessScreen'; 
-import Onboarding from './src/components/Onboarding'; 
-
+import SuccessScreen from './src/components/SuccessScreen';
+import Onboarding from './src/components/Onboarding';
+import ForgotPasswordScreen from './src/components/ForgotPasswordScreen';
+import ResetPasswordScreen from './src/components/ResetPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,42 +96,54 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen 
-          name="Splash" 
-          component={SplashScreen} 
-          options={{ headerShown: false }} 
+        <Stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="Login" 
-          component={LoginScreen} 
-          options={{ headerShown: false }} 
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="SignUp" 
-          component={SignUpScreen} 
-          // options={{ headerShown: false }} 
+        <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+        // options={{ headerShown: false }} 
         />
-        <Stack.Screen 
-          name="Verify" 
-          component={VerifyScreen} 
-          options={{ headerShown: false }} 
+        <Stack.Screen
+          name="Verify"
+          component={VerifyScreen}
+          // options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="Success" 
-          component={SuccessScreen} 
-          options={{ headerShown: false }} 
+        <Stack.Screen
+          name="Success"
+          component={SuccessScreen}
+          // options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="Onboarding" 
-          component={Onboarding} 
-          options={{ headerShown: false }} 
+        <Stack.Screen
+          name="Onboarding"
+          component={Onboarding}
+          options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="ForgotPassword"
+          component={ForgotPasswordScreen}
+          // options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ResetPassword"
+          component={ResetPasswordScreen}
+          // options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
+
 
 
 

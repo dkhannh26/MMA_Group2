@@ -13,7 +13,7 @@ const SignUpScreen = () => {
 
   const handleSignUp = () => {
     if (name && email && password && retypePassword && isSelected) {
-      navigation.navigate('Verify');
+      navigation.navigate('Verify', { process: 'signUp' });
     } else {
       alert('Please fill all fields and accept the terms of service.');
     }

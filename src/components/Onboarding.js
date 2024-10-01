@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { ImageBackground, View, Text, TouchableOpacity, StyleSheet, StatusBar, FlatList, Dimensions } from 'react-native';
+import { ImageBackground, View, Text, TouchableOpacity, StyleSheet, StatusBar, FlatList, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const onboardingData = [
     {
@@ -44,12 +44,13 @@ const Onboarding = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+            <StatusBar backgroundColor="transparent" translucent barStyle="dark-content" />
             <FlatList
                 data={onboardingData}
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
+                snapToAlignment='center'
                 keyExtractor={(item) => item.key}
                 renderItem={({ item }) => (
                     <View style={styles.itemContainer}>
@@ -90,6 +91,8 @@ const styles = StyleSheet.create({
     itemContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+        width: width,
+        height: height
     },
     title: {
         fontSize: 24,
@@ -105,8 +108,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     image: {
-        width: 420,
-        height: 900,
+        width: "100%",
+        height: "100%",
     },
     dotsContainer: {
         flexDirection: 'row',
