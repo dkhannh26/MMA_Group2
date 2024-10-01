@@ -1,35 +1,53 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Profile from '../screens/profile';
-import { Ionicons } from 'react-native-vector-icons';
-import profileStack from './profileStack';
-const Tab = createBottomTabNavigator();
-const Navigation = () => {
-    return (
-        <Tab.Navigator
-            screenOptions={({ route }) => ({
-                headerShown: false,
-                tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
+import Setting from '../screens/setting';
+import Help from '../screens/help';
+import Feedback from '../screens/feedback';
+import Edit from '../screens/edit-profile';
+import Header from '../components/header'
 
-                    if (route.name === 'Profile') {
-                        iconName = focused ? 'home' : 'home-outline';
-                    } else if (route.name === 'Profile') {
-                        iconName = focused ? 'person-circle' : 'person-circle-outline';
-                    }
+const Stack = createNativeStackNavigator();
 
-
-                    return <Ionicons name={iconName} size={size} color={color} />;
-                },
-                tabBarActiveTintColor: 'black',
-                tabBarInactiveTintColor: 'gray',
-            })}
-        >
-            <Tab.Screen name="1" component={profileStack} />
-
-            <Tab.Screen name="2" component={Profile} />
-        </Tab.Navigator>
-    );
-};
-
-export default Navigation;
+export default function Navigation() {
+  return (
+      <Stack.Navigator style={{ flex: 1 }} >
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            header: () => <Header headerTitle='Profile' />
+          }}
+        />
+        <Stack.Screen
+          name="Setting"
+          component={Setting}
+          options={{
+            // headerShown: false,
+            header: () => <Header headerTitle='Settings' />
+          }}
+        />
+        <Stack.Screen
+          name="Help"
+          component={Help}
+          options={{
+            header: () => <Header headerTitle='Help' />
+          }}
+        />
+        <Stack.Screen
+          name="Feedback"
+          component={Feedback}
+          options={{
+            header: () => <Header headerTitle='Feedback & Support' />
+          }}
+        />
+        <Stack.Screen
+          name="Edit"
+          component={Edit}
+          options={{
+            header: () => <Header headerTitle='Edit Profile' />
+          }}
+        />
+      </Stack.Navigator>
+  );
+}
