@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, FlatList, Pressable, Alert, Button } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList, Pressable, Alert, TouchableOpacity } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Feather from '@expo/vector-icons/Feather';
@@ -80,7 +80,7 @@ export default function Profile({ navigation }) {
         keyExtractor={item => item.id + ""}
         renderItem={({ item }) => {
           return (
-            <Pressable style={[styles.rowCenter, styles.featureItem]}
+            <TouchableOpacity style={[styles.rowCenter, styles.featureItem]}
               onPress={() => navigation.navigate(item.navigate)}
             >
               <View style={styles.rowCenter}>
@@ -90,7 +90,7 @@ export default function Profile({ navigation }) {
                 }}>{item.featureName}</Text>
               </View>
               <AntDesign name="right" size={13} color="black" />
-            </Pressable>
+            </TouchableOpacity>
           );
         }}
       />
