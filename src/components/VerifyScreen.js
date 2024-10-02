@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar, Keyboard } from 'react-native';
 
-const VerifyScreen = ({route, navigation }) => {
+const VerifyScreen = ({ route, navigation }) => {
   const { process } = route.params;
   const [code, setCode] = useState(['', '', '', '']);
   const [timer, setTimer] = useState(30);
@@ -29,7 +29,6 @@ const VerifyScreen = ({route, navigation }) => {
 
   const handleVerify = () => {
     if (code.every(digit => digit !== '')) {
-      // console.log(process)
       if (process === 'signUp') {
         navigation.navigate('Success');
       } else if (process === 'forgotPassword') {
@@ -41,7 +40,9 @@ const VerifyScreen = ({route, navigation }) => {
   };
 
   const handleResendCode = () => {
+    setCode(['', '', '', '']);
     setTimer(30);
+    // Add any additional logic to resend the code here
   };
 
   return (
@@ -66,7 +67,7 @@ const VerifyScreen = ({route, navigation }) => {
           />
         ))}
       </View>
-      <Text style={styles.timerText}>Code expires in: {`00:${timer < 10 ? `0${timer}` : timer}`}</Text>
+      <Text style={styles.timerText}>Code expires in: <Text style={styles.resendText}>{`00:${timer < 10 ? `0${timer}` : timer}`}</Text> </Text>
       <TouchableOpacity onPress={handleResendCode} disabled={timer > 0}>
         <Text style={styles.resendText}>Didn't receive code? Resend Code</Text>
       </TouchableOpacity>

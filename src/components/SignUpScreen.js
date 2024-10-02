@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import CheckBox from 'expo-checkbox';
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from '@expo/vector-icons/Ionicons'; // Import thêm icon từ Ionicons
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
@@ -10,6 +11,8 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
   const [isSelected, setSelection] = useState(false);
+  const [isPasswordVisible, setPasswordVisible] = useState(false); // State for password visibility
+  const [isRetypePasswordVisible, setRetypePasswordVisible] = useState(false); // State for retype password visibility
 
   const handleSignUp = () => {
     if (name && email && password && retypePassword && isSelected) {
@@ -47,22 +50,38 @@ const SignUpScreen = () => {
       />
 
       <Text style={styles.inputLabel}>Password</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!isPasswordVisible} // Toggle visibility
+        />
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => setPasswordVisible(!isPasswordVisible)}
+        >
+          <Ionicons name={isPasswordVisible ? "eye" : "eye-off"} size={24} color="black" />
+        </TouchableOpacity>
+      </View>
 
       <Text style={styles.inputLabel}>Re-type Password</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Re-enter your password"
-        value={retypePassword}
-        onChangeText={setRetypePassword}
-        secureTextEntry
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Re-enter your password"
+          value={retypePassword}
+          onChangeText={setRetypePassword}
+          secureTextEntry={!isRetypePasswordVisible} // Toggle visibility
+        />
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => setRetypePasswordVisible(!isRetypePasswordVisible)}
+        >
+          <Ionicons name={isRetypePasswordVisible ? "eye" : "eye-off"} size={24} color="black" />
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.checkboxContainer}>
         <CheckBox
@@ -124,6 +143,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     paddingHorizontal: 10,
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: 10,
+    bottom: 40
   },
   checkboxContainer: {
     flexDirection: 'row',
