@@ -8,6 +8,7 @@ import Save from '../screens/save';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SaveStack from './save-stack';
+import TripNavigator from './TripNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +41,8 @@ const Navigation = () => {
                     }
                     else if (route.name === 'Save') {
                         iconName = focused ? 'heart' : 'heart-outline';
+                    } else if (route.name === 'Trip') {
+                        iconName = focused ? 'car-sport' : 'car-sport-outline';
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />;
@@ -50,7 +53,7 @@ const Navigation = () => {
         >
             <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: "Home" }} />
             <Tab.Screen name="Save" component={SaveStack} />
-            <Tab.Screen name="Add" component={Profile} />
+            <Tab.Screen name="Trip" component={TripNavigator} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );

@@ -6,12 +6,13 @@ import Authentication from './src/authentication/authentication';
 
 export default function App() {
   return (
-
-    <NavigationContainer>
-      <Authentication />
-      {/* <StackNavigator /> */}
-    </NavigationContainer>
-
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Authentication />
+        {/* <TripNavigator /> thinh*/}
+        {/* <StackNavigator /> nguyen*/}
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 
