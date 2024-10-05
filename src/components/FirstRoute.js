@@ -39,7 +39,7 @@ const flatListData = [
     { id: 'button', type: 'button', text: 'Request to book' },
 ];
 
-const FirstRoute = ({ imageUri, rating }) => {
+const FirstRoute = ({ imageUri, rating, hotelName, hotelStar }) => {
     const navigator = useNavigation();
     const renderItem = ({ item }) => {
         switch (item.type) {
@@ -69,7 +69,7 @@ const FirstRoute = ({ imageUri, rating }) => {
             case 'button':
                 return (
                     <TouchableOpacity onPress={() => {
-                        navigator.navigate('Request to book', { imageUri: imageUri, rating: rating })
+                        navigator.navigate('Request to book', { imageUri: imageUri, rating: rating, hotelName: hotelName, hotelStar: hotelStar })
                     }}
                         style={[styles.button, styles.mg5]}
                     >

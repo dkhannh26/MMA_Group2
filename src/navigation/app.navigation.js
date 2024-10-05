@@ -1,13 +1,12 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BookingDetail from '../screens/bookingDetail';
-import AppHeader from './app.header';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from 'react-native-vector-icons';
+import BookingDetail from '../screens/bookingDetail';
 import Home from '../screens/home';
 import Profile from '../screens/requestToBook';
-import { Ionicons } from 'react-native-vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { MyMap, HotelMap } from '../screens/location';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -15,15 +14,16 @@ const HomeLayout = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="home" component={AppNavigation}
-                options={{ header: () => <AppHeader /> }} />
+                options={{ headerShown: false }} />
             <Stack.Screen name="Booking" component={BookingDetail}
+                options={{ headerShown: false }}
             />
             <Stack.Screen name="Request to book" component={Profile}
             />
         </Stack.Navigator>
     )
 }
-const CustomTabButton = ({ children, onPress, style }) => (
+const CustomTabButton = ({ children, onPress, focused }) => (
     <TouchableOpacity
         style={[{
             flex: 1,
@@ -32,8 +32,8 @@ const CustomTabButton = ({ children, onPress, style }) => (
             borderRadius: 20,
             marginHorizontal: 10,
             padding: 10,
-
-        }, style]}
+            backgroundColor: focused ? 'black' : '#888',
+        }]}
         onPress={onPress}
     >
         {children}
@@ -65,10 +65,24 @@ const AppNavigation = () => {
                 component={Home}
                 options={{
                     tabBarButton: (props) => (
-                        <CustomTabButton {...props} style={{ backgroundColor: 'black' }}>
+                        <CustomTabButton {...props} focused={props.accessibilityState.selected} >
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Ionicons name="list" size={20} color="white" />
                                 <Text style={{ color: 'white', fontSize: 12, marginLeft: 10 }}>View Hotel</Text>
+                            </View>
+                        </CustomTabButton>
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="View Map"
+                component={MyMap}
+                options={{
+                    tabBarButton: (props) => (
+                        <CustomTabButton {...props} focused={props.accessibilityState.selected} >
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Ionicons name="list" size={20} color="white" />
+                                <Text style={{ color: 'white', fontSize: 12, marginLeft: 10 }}>View Map</Text>
                             </View>
                         </CustomTabButton>
                     ),

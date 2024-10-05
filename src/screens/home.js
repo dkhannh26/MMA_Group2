@@ -105,40 +105,40 @@ const Home = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.bg}>
-                <ScrollView>
-                    <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
-                        <List.Item style={{ borderRadius: 30 }}>
-                            <Input
-                                style={{ borderRadius: 100 }}
-                                prefix={<Feather name="search" size={24} color="black" />}
-                                suffix={<Fontisto name="nav-icon-list-a" size={17} color="black" />}
-                                placeholder="Discover a city"
-                                value={searchQuery}
-                                onChangeText={text => setSearchQuery(text)}
-                            />
-                        </List.Item>
-                    </View>
-                    <FlatList
-                        data={filteredHotels}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    navigator.navigate('Booking', {
-                                        imageUri: item.image,
-                                        price: item.price,
-                                        hotelName: item.name,
-                                        rating: item.rating,
-                                        stars: item.stars,
-                                        hotelType: item.type,
-                                    });
-                                }}
-                            >
-                                <HotelCard hotel={item} />
-                            </TouchableOpacity>
-                        )}
-                        keyExtractor={(item) => item.id}
-                    />
-                </ScrollView>
+                <FlatList
+                    ListHeaderComponent={(
+                        <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+                            <List.Item style={{ borderRadius: 30 }}>
+                                <Input
+                                    style={{ borderRadius: 100 }}
+                                    prefix={<Feather name="search" size={24} color="black" />}
+                                    suffix={<Fontisto name="nav-icon-list-a" size={17} color="black" />}
+                                    placeholder="Discover a city"
+                                    value={searchQuery}
+                                    onChangeText={text => setSearchQuery(text)}
+                                />
+                            </List.Item>
+                        </View>
+                    )}
+                    data={filteredHotels}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigator.navigate('Booking', {
+                                    imageUri: item.image,
+                                    price: item.price,
+                                    hotelName: item.name,
+                                    rating: item.rating,
+                                    stars: item.stars,
+                                    hotelType: item.type,
+                                });
+                            }}
+                        >
+                            <HotelCard hotel={item} />
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item.id}
+                />
             </View>
         </SafeAreaView>
     );
