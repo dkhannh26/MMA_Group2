@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from '../components/SplashScreen';
-import LoginScreen from '../components/LoginScreen';
-import SignUpScreen from '../components/SignUpScreen';
-import VerifyScreen from '../components/VerifyScreen';
-import SuccessScreen from '../components/SuccessScreen';
+import SplashScreen from '../screens/SplashScreen';
+import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import VerifyScreen from '../screens/VerifyScreen';
+import SuccessScreen from '../screens/SuccessScreen';
 import Onboarding from '../components/Onboarding';
 import ForgotPasswordScreen from '../components/ForgotPasswordScreen';
 import ResetPasswordScreen from '../components/ResetPasswordScreen';
@@ -18,7 +18,6 @@ const StackNavigator = () => {
         name="Splash"
         component={SplashScreen}
         options={{ headerShown: false }}
-        
       />
       <Stack.Screen
         name="Login"
