@@ -24,7 +24,7 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+            {/* <StatusBar backgroundColor="#fff" barStyle="dark-content" /> */}
             <Image
                 source={require('../../assets/image/dotai2.png')}
                 style={styles.icon}
@@ -101,7 +101,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         padding: 25,
     },
     icon: {

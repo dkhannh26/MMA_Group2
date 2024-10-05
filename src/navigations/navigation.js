@@ -50,6 +50,7 @@ const Navigation = () => {
         >
             <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: "Home" }} />
             <Tab.Screen name="Save" component={SaveStack} />
+            <Tab.Screen name="Add" component={Profile} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );
