@@ -3,12 +3,13 @@ import { View, Text, StyleSheet, FlatList, TextInput, ScrollView, TouchableOpaci
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import { Input, List } from '@ant-design/react-native'
 import { Avatar } from '@rneui/themed';
 import Carousel from '../components/carousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Image } from '@rneui/base';
+import { Input, List } from '@ant-design/react-native';
+
 const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
