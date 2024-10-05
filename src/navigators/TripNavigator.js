@@ -22,13 +22,26 @@ export default function TripNavigator() {
             name="chevron-back-outline"
             size={24}
             color="black"
+            containerStyle={{
+              borderRadius: 50,
+              backgroundColor: "#f3f3f4",
+              width: 40,
+              height: 40,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             onPress={() => navigation.goBack()} // Điều khiển hành động nút Back
           />
         ),
+        headerTitleAlign: "center",
       })}
     >
       <Stack.Screen name="My Trips" component={MyTrip} />
-      <Stack.Screen name="Add new trip" component={AddNewTrip} />
+      <Stack.Screen
+        name="Add new trip"
+        component={AddNewTrip}
+        options={{ title: "Plan a new trip" }}
+      />
       <Stack.Screen name="Trip Detail Plan" component={UpdateTrip} />
     </Stack.Navigator>
   );

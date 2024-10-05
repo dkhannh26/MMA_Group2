@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: "bold",
     marginBottom: 8,
-    marginTop: 8,
+    marginTop: "4%",
   },
   tripRow: {
     flexDirection: "row",
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
+    paddingBottom: "5%",
   },
   tripCard1: {
     backgroundColor: "white",
@@ -122,13 +123,13 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 140,
+    height: 200,
     justifyContent: "center",
     alignItems: "center",
   },
   image1: {
     width: "100%",
-    height: 160,
+    height: 210,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -201,9 +202,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "black",
-    borderRadius: 5,
+    borderRadius: 10,
     marginHorizontal: 10,
-    marginVertical: 5,
+    // marginVertical: 3,
+    paddingVertical: 12,
   },
   buttonText: {
     color: "white",

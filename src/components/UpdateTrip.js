@@ -28,7 +28,7 @@ export default function UpdateTrip({ navigation }) {
       screenOptions={{
         tabBarLabelStyle: { fontSize: 11, fontWeight: "bold" },
         tabBarStyle: {
-          paddingVertical: 10,
+          paddingVertical: 20,
           marginHorizontal: "3%",
           backgroundColor: "#FFFFFF",
           elevation: 0, // Remove shadow (Android)
@@ -49,7 +49,7 @@ export default function UpdateTrip({ navigation }) {
           backfaceVisibility: "transparent",
           height: "50%", // Make indicator fill the whole tab for rounded effect
           borderRadius: 20, // Border radius to match tab item
-          marginBottom: "23%",
+          marginBottom: "25%",
         },
         // tabBarPressColor: "#ff361d", // Press color effect
       }}
@@ -63,6 +63,7 @@ export default function UpdateTrip({ navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 10,
     backgroundColor: "#FFFFFF",
   },
   date: {

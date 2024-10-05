@@ -89,10 +89,15 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   button: {
+    // backgroundColor: "black",
+    // borderRadius: 5,
+    // marginHorizontal: "5%",
+    // marginVertical: 5,
     backgroundColor: "black",
-    borderRadius: 5,
-    marginHorizontal: "5%",
-    marginVertical: 5,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: "24%",
+    paddingVertical: 12,
   },
   buttonText: {
     color: "white",

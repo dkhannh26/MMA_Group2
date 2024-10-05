@@ -62,7 +62,7 @@ export function DaysPlan() {
           <Image source={{ uri: plan.image }} style={styles.image} />
           <View style={styles.text}>
             <Text style={styles.scheduleTitle}>{plan.title}</Text>
-            <Text style={styles.subtitle}>{plan.subtitle}</Text>
+            <Text style={styles.scheduleSubtitle}>{plan.subtitle}</Text>
             <Text style={styles.scheduleTime}>{plan.time}</Text>
           </View>
         </View>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   activeDateItem: {
     backgroundColor: "#ff361d", // Active background color
     borderRadius: 20,
+    width: "10%",
   },
   dateItem: {
     alignItems: "center",
@@ -122,12 +123,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     // color: "#555",
     fontWeight: "500",
+    // marginTop: "5%",
   },
   button: {
     backgroundColor: "black",
-    borderRadius: 5,
-    marginHorizontal: "5%",
-    marginVertical: "5.5%",
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: "19%",
+    paddingVertical: 12,
   },
   buttonText: {
     color: "white",
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "20%",
-    height: "120%",
+    height: "150%",
     borderRadius: 10,
   },
   text: {
@@ -147,14 +150,14 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     borderRadius: 10,
     marginRight: "5%",
-    height: "120%",
+    height: "150%",
   },
   sideActive: {
     width: "2%",
     backgroundColor: "#ff361d",
     borderRadius: 10,
     marginRight: "5%",
-    height: "120%",
+    height: "150%",
   },
   expense: {
     // marginBottom: 16,

@@ -33,7 +33,7 @@ export default function AddNewTrip({ navigation }) {
           [dateString]: {
             selected: true,
             color: "#f2613c",
-            borderRadius: 10,
+            // borderRadius: 10,
           },
         };
         setMarkedDates(updatedMarkedDates);
@@ -90,18 +90,28 @@ export default function AddNewTrip({ navigation }) {
         }}
       >
         <Icon
-          style={{ paddingTop: 20, paddingBottom: 10 }}
+          style={{ paddingTop: 50, paddingBottom: 20 }}
           color={"#2089dc"}
           type="font-awesome-5"
           name="plane-departure"
+          size={28}
         />
       </View>
-      <Text style={tailwind("font-black px-4 text-2xl	text-center	")}>
+      {/* tailwind("font-black px-4 text-2xl	text-center	") */}
+      <Text
+        style={{
+          color: "black",
+          paddingHorizontal: 24,
+          fontSize: 30,
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
         Let's Get Start Plan A New Trip
       </Text>
       <View>
         <View>
-          <Text style={styles.text}>Where to</Text>
+          <Text style={styles.text}>Where to?</Text>
           <Input
             inputContainerStyle={styles.input}
             placeholder="type location"
@@ -112,6 +122,7 @@ export default function AddNewTrip({ navigation }) {
               size: 17,
               paddingLeft: 8,
             }}
+            containerStyle={{ paddingLeft: 15 }}
             onPress={() => {
               setOverlayVisibleLocation(true);
             }}
@@ -121,7 +132,7 @@ export default function AddNewTrip({ navigation }) {
             onBackdropPress={() => setOverlayVisibleLocation(false)}
             overlayStyle={styles.overlay}
           >
-            <Text style={styles.text}>Where To?</Text>
+            <Text style={styles.textHeader}>Where To?</Text>
             <Input
               inputContainerStyle={styles.input}
               leftIcon={{
@@ -133,6 +144,7 @@ export default function AddNewTrip({ navigation }) {
               value={searchQuery}
               onChangeText={handleSearch}
             />
+
             <FlatList
               data={filteredData}
               keyExtractor={(item) => item.id}
@@ -146,7 +158,8 @@ export default function AddNewTrip({ navigation }) {
                         setChoose(item.title);
                       }}
                     >
-                      {item.title}
+                      {item.title}{" "}
+                      <Text style={{ fontWeight: "bold" }}>{item.city}</Text>
                     </ListItem.Title>
                   </ListItem.Content>
                   {/* <ListItem.Chevron /> */}
@@ -166,6 +179,7 @@ export default function AddNewTrip({ navigation }) {
             size: 17,
             paddingLeft: 8,
           }}
+          containerStyle={{ paddingLeft: 15 }}
           onPress={() => {
             setOverlayVisibleCalendar(true);
           }}
@@ -176,10 +190,15 @@ export default function AddNewTrip({ navigation }) {
           // style={styles.overlay}
           overlayStyle={styles.overlayCalendar}
         >
+          <Text style={styles.textHeaderDate}>When's Your Trips?</Text>
           <Calendar
             markingType={"period"}
             markedDates={markedDates}
             onDayPress={onDayPress}
+            theme={{
+              textSectionTitleColor: "black",
+              textMonthFontWeight: "bold",
+            }}
           />
           <Button
             title="Confirm"
@@ -215,14 +234,15 @@ export default function AddNewTrip({ navigation }) {
         <Input
           // multiline={true}
           inputContainerStyle={styles.input}
+          containerStyle={{ paddingLeft: 15 }}
           rightIcon={{
             type: "ionic",
             name: "add-circle-outline",
             onPress: () => {
-              setValue(value + 1);
+              if (value < 99) setValue(value + 1);
             },
 
-            paddingLeft: 8,
+            marginRight: 80,
           }}
           leftIcon={{
             type: "ionic",
@@ -233,7 +253,7 @@ export default function AddNewTrip({ navigation }) {
               }
             },
 
-            paddingLeft: 8,
+            marginLeft: 8,
           }}
           rightIconContainerStyle={{
             paddingRight: 250,
@@ -255,6 +275,7 @@ export default function AddNewTrip({ navigation }) {
             size: 17,
             paddingLeft: 8,
           }}
+          containerStyle={{ paddingLeft: 15 }}
         />
       </View>
 
@@ -273,9 +294,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "black",
-    borderRadius: 5,
-    marginHorizontal: "5%",
-    marginVertical: 5,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: "12%",
+    paddingVertical: 12,
   },
   buttonText: {
     color: "white",
@@ -298,6 +320,8 @@ const styles = StyleSheet.create({
     width: "100%",
     minHeight: "50%", // Limit height to prevent overflow
     backgroundColor: "white", // Background color to ensure touchability
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   input: {
     // rounded-lg border-gray-700 border-2 pl-2
@@ -308,8 +332,20 @@ const styles = StyleSheet.create({
   },
   text: {
     // fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 18,
     paddingLeft: 10,
     paddingBottom: 5,
+  },
+  textHeader: {
+    fontSize: 22,
+    fontWeight: "bold",
+    paddingBottom: 10,
+    marginLeft: 8,
+  },
+  textHeaderDate: {
+    fontSize: 22,
+    fontWeight: "bold",
+    paddingTop: 10,
+    marginLeft: 8,
   },
 });

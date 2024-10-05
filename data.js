@@ -216,25 +216,34 @@ export const expenses = [
   },
 ];
 export const data = [
-  { id: "1", title: "Toronto, Canada", subtitle: "Description for Item 1" },
+  {
+    id: "1",
+    title: "Toronto, ",
+    subtitle: "Description for Item 1",
+    city: "Canada",
+  },
   {
     id: "2",
-    title: "Shillinton Pennsylvania, United States",
+    title: "Shillinton Pennsylvania, ",
     subtitle: "Description for Item 2",
+    city: "United States",
   },
   {
     id: "3",
-    title: "Shillelagh Province, Ireland",
+    title: "Shillelagh Province, ",
     subtitle: "Description for Item 3",
+    city: "Ireland",
   },
   {
     id: "4",
-    title: "Godshill Durham, United Kingdom",
+    title: "Godshill Durham, ",
+    city: "United Kingdom",
     subtitle: "Description for Item 4",
   },
   {
     id: "5",
-    title: "Godshill Durham, India",
+    title: "Godshill Durham, ",
+    city: "India",
     subtitle: "Description for Item 5",
   },
   { id: "6", title: "Tokyo", subtitle: "Description for Item 6" },
