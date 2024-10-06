@@ -6,14 +6,19 @@ import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AwesomeAlert from 'react-native-awesome-alerts';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// let userName = "DOTAI GROUP"
+// let city = "Can Tho"
+// let email = "abcxyz@gmail.com"
+// let phone = "0123456789"
 
 export default function Profile({ navigation }) {
 
-  const [useName, setUserName] = useState("DOTAI GROUP");
-  const [career, setcareer] = useState("UI UX Designer");
+  const [userName, setUserName] = useState("DOTAI GROUP");
+  const [city, setCity] = useState("Can Tho");
+  const [email, setEmail] = useState("abcxyz@gmail.com");
+  const [phone, setPhone] = useState("0123456789");
+  
   const [showAlert, setShowAlert] = useState(false);
 
   // const { navigation } = props;
@@ -72,8 +77,8 @@ export default function Profile({ navigation }) {
             <FontAwesome5 name="pen" size={10} color="black" />
           </Pressable>
         </View>
-        <Text style={styles.name}>{useName}</Text>
-        <Text style={styles.career}>{career}</Text>
+        <Text style={styles.name}>{userName}</Text>
+        <Text style={styles.city}>{city}</Text>
       </View>
 
       <FlatList
@@ -121,8 +126,8 @@ export default function Profile({ navigation }) {
           show={showAlert}
           title="Dotai Trip"
           titleStyle={{ fontSize: 20, fontWeight: "600", color: "black" }}
-          message='Are you sure you want to log out?' 
-          messageStyle={{color: "#080E1E"}}
+          message='Are you sure you want to log out?'
+          messageStyle={{ color: "#080E1E" }}
           contentContainerStyle={{
             borderRadius: 20
           }}
@@ -153,7 +158,7 @@ export default function Profile({ navigation }) {
             fontSize: 15
           }}
           onConfirmPressed={() => setShowAlert(false)}
-          />
+        />
       </Pressable>
     </View>
   );
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 5
   },
-  career: {
+  city: {
     textAlign: "center",
     width: "100%",
     fontSize: 12,

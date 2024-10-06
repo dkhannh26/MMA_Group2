@@ -1,18 +1,52 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Alert, TouchableOpacity } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
-export default function Profile({ navigation }) {
+export default function Profile() {
 
     const [userName, setUserName] = useState("DOTAI GROUP");
-    const [career, setcareer] = useState("UI UX Designer");
+    const [city, setCity] = useState("Can Tho");
     const [email, setEmail] = useState("abcxyz@gmail.com");
     const [phone, setPhone] = useState("0123456789");
 
-    // const { navigation } = props;
+    const [formData, setFormData] = useState({
+        username: '',
+        city: '',
+        email: '',
+        phoneNumber: '',
+    });
 
+    const handleSubmit = () => {
+        const { username, city, email, phoneNumber } = formData;
+
+        if (username.trim() === '' || city.trim() === '' || email.trim() === '' || phoneNumber.trim() === '') {
+            Alert.alert('Error', 'Please fill in all information.');
+            return;
+        }
+
+        setUserName(username);
+        setCity(city);
+        setEmail(email);
+        setPhone(phoneNumber);
+
+        setFormData({
+            username: '',
+            city: '',
+            email: '',
+            phoneNumber: '',
+        });
+
+
+    }
+
+    const handleChange = (name, value) => {
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    }
 
     return (
         <View style={styles.container}>
@@ -34,7 +68,7 @@ export default function Profile({ navigation }) {
                     />
                 </View>
                 <Text style={styles.name}>{userName}</Text>
-                <Text style={styles.career}>{career}</Text>
+                <Text style={styles.city}>{city}</Text>
             </View>
 
             <View style={[styles.pd15]}>
@@ -45,19 +79,23 @@ export default function Profile({ navigation }) {
                         <TextInput
                             style={styles.inputText}
                             placeholder={userName}
-                            placeholderTextColor="black"
+                            placeholderTextColor="#64646E"
+                            value={formData.username}
+                            onChangeText={text => handleChange('username', text)}
                         />
                     </View>
                 </View>
 
                 <View style={styles.editInfo}>
-                    <Text style={styles.titleInfo}>Position</Text>
+                    <Text style={styles.titleInfo}>City</Text>
                     <View style={[styles.rowCenter, styles.inputContainer]}>
                         <AntDesign name="tagso" size={22} color="black" />
                         <TextInput
                             style={styles.inputText}
-                            placeholder={career}
-                            placeholderTextColor="black"
+                            placeholder={city}
+                            placeholderTextColor="#64646E"
+                            value={formData.city}
+                            onChangeText={text => handleChange('city', text)}
                         />
                     </View>
                 </View>
@@ -69,7 +107,9 @@ export default function Profile({ navigation }) {
                         <TextInput
                             style={styles.inputText}
                             placeholder={email}
-                            placeholderTextColor="black"
+                            placeholderTextColor="#64646E"
+                            value={formData.email}
+                            onChangeText={text => handleChange('email', text)}
                         />
                     </View>
                 </View>
@@ -81,7 +121,10 @@ export default function Profile({ navigation }) {
                         <TextInput
                             style={styles.inputText}
                             placeholder={phone}
-                            placeholderTextColor="black"
+                            placeholderTextColor="#64646E"
+                            value={formData.phoneNumber}
+                            onChangeText={text => handleChange('phoneNumber', text)}
+                            keyboardType="phone-pad"
                         />
                     </View>
                 </View>
@@ -90,24 +133,32 @@ export default function Profile({ navigation }) {
                     <Text style={styles.titleInfo}>Birth Date</Text>
                     <View style={[styles.rowCenter]}>
                         <TextInput
-                            style={[styles.inputText, styles.inputContainer, {textAlign: "center", marginRight: 20}]}
+                            style={[styles.inputText, styles.inputContainer, { textAlign: "center", marginRight: 20 }]}
                             placeholder="05"
-                            placeholderTextColor="black"
+                            placeholderTextColor="#64646E"
                         />
 
                         <TextInput
-                            style={[styles.inputText, styles.inputContainer, {textAlign: "center",marginRight: 20}]}
+                            style={[styles.inputText, styles.inputContainer, { textAlign: "center", marginRight: 20 }]}
                             placeholder="August"
-                            placeholderTextColor="black"
+                            placeholderTextColor="#64646E"
                         />
 
                         <TextInput
-                            style={[styles.inputText, styles.inputContainer, {textAlign: "center"}]}
+                            style={[styles.inputText, styles.inputContainer, { textAlign: "center" }]}
                             placeholder="2003"
-                            placeholderTextColor="black"
+                            placeholderTextColor="#64646E"
                         />
                     </View>
                 </View>
+
+                <TouchableOpacity
+                    style={styles.sumbitBtn}
+                    onPress={handleSubmit}>
+                    <Text
+                        style={styles.submitText}
+                    >Submit</Text>
+                </TouchableOpacity>
             </View>
 
 
@@ -147,7 +198,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 5
     },
-    career: {
+    city: {
         textAlign: "center",
         width: "100%",
         fontSize: 12,
@@ -167,5 +218,18 @@ const styles = StyleSheet.create({
     inputText: {
         padding: 10,
         flex: 1,
+    },
+    sumbitBtn: {
+        backgroundColor: "black",
+        textAlign: "center",
+        borderRadius: 2,
+        height: 40,
+    },
+    submitText: {
+        color: "white",
+        margin: "auto",
+        fontSize: 17,
+        fontWeight: "600"
     }
 });
+
