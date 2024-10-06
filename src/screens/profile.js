@@ -7,18 +7,8 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
-// let userName = "DOTAI GROUP"
-// let city = "Can Tho"
-// let email = "abcxyz@gmail.com"
-// let phone = "0123456789"
+export default function Profile({ navigation, profile  }) {
 
-export default function Profile({ navigation }) {
-
-  const [userName, setUserName] = useState("DOTAI GROUP");
-  const [city, setCity] = useState("Can Tho");
-  const [email, setEmail] = useState("abcxyz@gmail.com");
-  const [phone, setPhone] = useState("0123456789");
-  
   const [showAlert, setShowAlert] = useState(false);
 
   // const { navigation } = props;
@@ -55,11 +45,6 @@ export default function Profile({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.header}>
-                <AntDesign name="left" size={20} color="black" style={[styles.backBtn, styles.icon]} />
-                <Text style={styles.headerText}>Profile</Text>
-            </View> */}
-
       <View>
         {/* profile info */}
         <View style={{
@@ -77,8 +62,8 @@ export default function Profile({ navigation }) {
             <FontAwesome5 name="pen" size={10} color="black" />
           </Pressable>
         </View>
-        <Text style={styles.name}>{userName}</Text>
-        <Text style={styles.city}>{city}</Text>
+        <Text style={styles.name}>{profile.username}</Text>
+        <Text style={styles.city}>{profile.city}</Text>
       </View>
 
       <FlatList

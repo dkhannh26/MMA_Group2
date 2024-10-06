@@ -3,58 +3,39 @@ import { StyleSheet, Text, View, Image, TextInput, Alert, TouchableOpacity } fro
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import Feather from '@expo/vector-icons/Feather';
 
-export default function Profile() {
+export default function Edit({ navigation, profile, setProfile }) {
 
-    const [userName, setUserName] = useState("DOTAI GROUP");
-    const [city, setCity] = useState("Can Tho");
-    const [email, setEmail] = useState("abcxyz@gmail.com");
-    const [phone, setPhone] = useState("0123456789");
+    const [username, setUsername] = useState(profile.username);
+    const [city, setCity] = useState(profile.city);
+    const [email, setEmail] = useState(profile.email);
+    const [phone, setPhone] = useState(profile.phone);
 
-    const [formData, setFormData] = useState({
-        username: '',
-        city: '',
-        email: '',
-        phoneNumber: '',
-    });
+    const [errors, setErrors] = useState({ username: '', city: '', email: '', phone: '' });
 
     const handleSubmit = () => {
-        const { username, city, email, phoneNumber } = formData;
+        let valid = true;
+        let newErrors = { username: '', city: '', email: '', phone: '' };
 
-        if (username.trim() === '' || city.trim() === '' || email.trim() === '' || phoneNumber.trim() === '') {
+        if (username.trim() === '' || city.trim() === '' || email.trim() === '' || phone.trim() === '') {
             Alert.alert('Error', 'Please fill in all information.');
             return;
         }
 
-        setUserName(username);
-        setCity(city);
-        setEmail(email);
-        setPhone(phoneNumber);
+        setErrors(newErrors);
 
-        setFormData({
-            username: '',
-            city: '',
-            email: '',
-            phoneNumber: '',
-        });
+        if (valid) {
+            // Cập nhật profile qua setProfile
+            setProfile({ username, city, email, phone });
 
-
-    }
-
-    const handleChange = (name, value) => {
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+            // Quay lại màn hình Profile
+            navigation.goBack();
+        }
     }
 
     return (
         <View style={styles.container}>
-            {/* <View style={styles.header}>
-                <AntDesign name="left" size={20} color="black" style={[styles.backBtn, styles.icon]} />
-                <Text style={styles.headerText}>Profile</Text>
-            </View> */}
-
             <View>
                 {/* profile info */}
                 <View style={{
@@ -66,9 +47,12 @@ export default function Profile() {
                         style={styles.avatar}
                         source={{ uri: 'https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg' }}
                     />
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Edit")}
+                        style={styles.editBtn}>
+                        <Feather name="camera" size={10} color="black" />
+                    </TouchableOpacity>
                 </View>
-                <Text style={styles.name}>{userName}</Text>
-                <Text style={styles.city}>{city}</Text>
             </View>
 
             <View style={[styles.pd15]}>
@@ -78,10 +62,15 @@ export default function Profile() {
                         <Ionicons name="person-outline" size={22} color="black" />
                         <TextInput
                             style={styles.inputText}
-                            placeholder={userName}
+                            placeholder={username}
                             placeholderTextColor="#64646E"
-                            value={formData.username}
-                            onChangeText={text => handleChange('username', text)}
+                            value={username}
+                            onChangeText={text => {
+                                setUsername(text);
+                                if (text.trim() !== '') {
+                                    setErrors(prev => ({ ...prev, username: '' }));
+                                }
+                            }}
                         />
                     </View>
                 </View>
@@ -94,8 +83,13 @@ export default function Profile() {
                             style={styles.inputText}
                             placeholder={city}
                             placeholderTextColor="#64646E"
-                            value={formData.city}
-                            onChangeText={text => handleChange('city', text)}
+                            value={city}
+                            onChangeText={text => {
+                                setCity(text);
+                                if (text.trim() !== '') {
+                                    setErrors(prev => ({ ...prev, city: '' }));
+                                }
+                            }}
                         />
                     </View>
                 </View>
@@ -108,8 +102,13 @@ export default function Profile() {
                             style={styles.inputText}
                             placeholder={email}
                             placeholderTextColor="#64646E"
-                            value={formData.email}
-                            onChangeText={text => handleChange('email', text)}
+                            value={email}
+                            onChangeText={text => {
+                                setEmail(text);
+                                if (text.trim() !== '') {
+                                    setErrors(prev => ({ ...prev, email: '' }));
+                                }
+                            }}
                         />
                     </View>
                 </View>
@@ -122,9 +121,14 @@ export default function Profile() {
                             style={styles.inputText}
                             placeholder={phone}
                             placeholderTextColor="#64646E"
-                            value={formData.phoneNumber}
-                            onChangeText={text => handleChange('phoneNumber', text)}
                             keyboardType="phone-pad"
+                            value={phone}
+                            onChangeText={text => {
+                                setPhone(text);
+                                if (text.trim() !== '') {
+                                    setErrors(prev => ({ ...prev, phone: '' }));
+                                }
+                            }}
                         />
                     </View>
                 </View>
@@ -173,6 +177,14 @@ const styles = StyleSheet.create({
     },
     pd15: {
         padding: 15,
+    },
+    editBtn: {
+        position: "absolute",
+        bottom: 1,
+        right: 1,
+        backgroundColor: "#fff",
+        borderRadius: 50,
+        padding: 5
     },
     icon: {
         backgroundColor: "#f8f4f4",
@@ -224,6 +236,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         borderRadius: 2,
         height: 40,
+        marginTop: 10
     },
     submitText: {
         color: "white",
