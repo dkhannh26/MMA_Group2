@@ -18,23 +18,22 @@ export default function Header(props) {
                     onPress={() => navigation.goBack()}
                 />
             </TouchableOpacity> */}
-            <TouchableOpacity
-                onPress={() => navigation.goBack()}
-            >
-                <View style={styles.icon}>
-                    <AntDesign name="left" size={20} color="black" />
-                </View>
-            </TouchableOpacity>
+            <View style={{ position: 'absolute', left: 30, top: 20 }}>
+                <TouchableOpacity
+
+                    onPress={() => navigation.goBack()}
+                >
+                    <View style={styles.icon}>
+                        <AntDesign name="left" size={20} color="black" />
+                    </View>
+                </TouchableOpacity>
+            </View>
             <Text style={styles.headerText}>{props.headerTitle}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff'
-    },
     icon: {
         backgroundColor: "#f8f4f4",
         borderRadius: 50,
@@ -43,18 +42,16 @@ const styles = StyleSheet.create({
         height: 30,
     },
     header: {
-        flexDirection: "row",
+        width: '100%',
+        height: 80,
+        marginTop: 10,
+        backgroundColor: 'white',
         alignItems: "center",
-        width: "83%",
-        paddingHorizontal: 15,
-        paddingTop: 30,
-        marginBottom: 20
+        justifyContent: 'center',
     },
     headerText: {
-        width: "100%",
-        textAlign: "center",
         fontWeight: "600",
-        fontSize: 15,
+        fontSize: 19,
     },
     backBtn: {
         // position: "absolute",

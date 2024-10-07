@@ -1,15 +1,11 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../screens/home';
-import Profile from '../screens/profile';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import HomeStack from './home-stack';
-import Save from '../screens/save';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import ProfileStack from './profileStack';
 import SaveStack from './save-stack';
 import TripNavigator from './TripNavigator';
-import ProfileStack from './profileStack';
 
 const Tab = createBottomTabNavigator();
 

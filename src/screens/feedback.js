@@ -1,28 +1,50 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Platform, TextInput, FlatList, ScrollView } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function Feedback() {
+
+    const [message, setMessage] = useState("");
+    const [inbox, setInbox] = useState([]);
+
+const handleAddMessage = () => {
+    setInbox([...inbox, { id: inbox.length + 1, mess: message }]);
+    setMessage("")
+}
+
     return (
         <View style={styles.container}>
-            <View style={styles.messageContainer}>
-                <View style={[styles.messageBubble, styles.userMessage]}>
-                    <Text style={[styles.messageText, {color: "white"}]}>Hello, I need support</Text>
-                    {/* <Image source={{ uri: 'https://example.com/child-image.jpg' }} style={styles.image} /> */}
-                </View>
-                {/* {/* <View style={styles.messageBubble}>
-                    <Text style={styles.messageText}>Hi, That's great! Thanks for letting me know 😊</Text>
-                    <Text style={styles.timestamp}>14:06</Text>
-                </View> */}
+            <ScrollView style={styles.messageContainer}>
                 <View style={[styles.messageBubble, styles.adminMessage]}>
-                    <Text style={styles.messageText}>Hi, how can i help you 😘</Text>
-                    {/* <Text style={styles.timestamp}>14:06</Text> */}
-                </View> 
-            </View>
-            <View style={styles.inputContainer}>
-                <TextInput style={styles.input} placeholder="Write a reply..." />
-                <TouchableOpacity>
-                    <Text style={styles.emoji}>😊</Text>
-                </TouchableOpacity>
+                    <Text style={styles.messageText}>Hi, how can i help you 😘 </Text>
+                </View>
+                <FlatList
+                    data={inbox}
+                    renderItem={({ item }) => {
+                        return (
+                            <View style={[styles.messageBubble, styles.userMessage]}>
+                                <Text style={[styles.messageText, { color: "white" }]}>{item.mess}</Text>
+                            </View>
+                        )
+                    }}
+                    style={{flexGrow: 0}}
+                />
+            </ScrollView>
+            <View style={[styles.inputContainer]}>
+                <Feather name="plus-circle" size={26} color="black" />
+                <View style={styles.input}>
+                    <TextInput
+                        placeholder="Write a reply..." placeholderTextColor={'#64646E'}
+                        onChangeText={(value) => setMessage(value)}
+                        value={message}
+                        style={{ flex: 1 }}
+                    />
+                    <TouchableOpacity
+                        onPress={handleAddMessage}
+                    >
+                        <Feather name="send" size={24} color="black" />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -55,36 +77,25 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         marginLeft: 5
     },
-    image: {
-        width: '100%',
-        height: 200,
-        borderRadius: 10,
-        marginTop: 10,
-    },
-    timestamp: {
-        fontSize: 12,
-        color: '#888',
-        textAlign: 'right',
-        marginTop: 5,
-    },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        justifyContent: "space-between",
+        padding: 15,
+        paddingBottom: 50,
         borderTopWidth: 1,
-        borderTopColor: '#ccc',
+        borderTopColor: "#F6F5F5"
     },
     input: {
         flex: 1,
         fontSize: 16,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 20,
-    },
-    emoji: {
-        fontSize: 24,
         marginLeft: 10,
+        padding: 10,
+        backgroundColor: "#F6F5F5",
+        borderRadius: 20,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
 });
 

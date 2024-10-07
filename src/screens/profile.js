@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, FlatList, Pressable, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList, Pressable, TouchableOpacity } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AwesomeAlert from 'react-native-awesome-alerts';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-export default function Profile({ navigation }) {
+export default function Profile({ navigation, profile  }) {
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -48,11 +45,6 @@ export default function Profile({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.header}>
-                <AntDesign name="left" size={20} color="black" style={[styles.backBtn, styles.icon]} />
-                <Text style={styles.headerText}>Profile</Text>
-            </View> */}
-
       <View>
         {/* profile info */}
         <View style={{
@@ -70,8 +62,8 @@ export default function Profile({ navigation }) {
             <FontAwesome5 name="pen" size={10} color="black" />
           </Pressable>
         </View>
-        <Text style={styles.name}>DOTAI GROUP</Text>
-        <Text style={styles.career}>UI UX Designer</Text>
+        <Text style={styles.name}>{profile.username}</Text>
+        <Text style={styles.city}>{profile.city}</Text>
       </View>
 
       <FlatList
@@ -195,7 +187,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 5
   },
-  career: {
+  city: {
     textAlign: "center",
     width: "100%",
     fontSize: 12,
