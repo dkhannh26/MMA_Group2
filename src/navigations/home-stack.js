@@ -7,6 +7,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import HomeLayout from '../navigation/app.navigation';
 
 const LikeButton = () => {
     const [liked, setLiked] = useState(false);
@@ -55,6 +56,13 @@ const HomeStack = () => {
                             </View>
                         </View>
                     </View>
+                }}
+            />
+            <Stack.Screen
+                name="PlaceDetail"
+                component={HomeLayout}
+                options={{
+                    header: () => <></>
                 }}
             />
         </Stack.Navigator>

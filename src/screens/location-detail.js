@@ -10,8 +10,10 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const LocationDetail = () => {
+    const navigation = useNavigation()
     return (
         <ScrollView>
             <ImageBackground source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }} resizeMode="cover" style={styles.bgImage}>
@@ -88,7 +90,8 @@ const LocationDetail = () => {
                 </Text>
 
                 <View flexDirection="row">
-                    <View style={styles.place}>
+                    <TouchableOpacity style={styles.place} onPress={() => { navigation.navigate('PlaceDetail') }} >
+
                         <Image
                             style={styles.placeImage}
                             source={{ uri: 'https://i.pinimg.com/564x/a4/b1/f2/a4b1f26f7673507415435ef9050ea082.jpg' }}
@@ -106,9 +109,10 @@ const LocationDetail = () => {
                                 </Text>
                             </View>
                         </View>
-                    </View>
 
-                    <View style={styles.place}>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.place} onPress={() => { navigation.navigate('PlaceDetail') }} >
                         <Image
                             style={styles.placeImage}
                             source={{ uri: 'https://i.pinimg.com/564x/4a/b4/1f/4ab41f57954d4def38475350cab8b63e.jpg' }}
@@ -126,7 +130,7 @@ const LocationDetail = () => {
                                 </Text>
                             </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
 
@@ -181,7 +185,7 @@ const LocationDetail = () => {
                     </View>
                 </View>
             </View>
-        </ScrollView>
+        </ScrollView >
 
     );
 };
