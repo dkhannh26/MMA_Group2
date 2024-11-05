@@ -6,17 +6,18 @@ import Feather from '@expo/vector-icons/Feather';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AwesomeAlert from 'react-native-awesome-alerts';
-
-export default function Profile({ navigation, profile  }) {
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n/i18n';
+export default function Profile({ navigation, profile }) {
 
   const [showAlert, setShowAlert] = useState(false);
-
+  const { t } = useTranslation();
   // const { navigation } = props;
   const profileFeatures = [
     {
       id: 1,
       icon: <AntDesign name="setting" size={20} color="black" />,
-      featureName: "Settings",
+      featureName: t("settings"),
       navigate: "Setting"
     },
     // {
@@ -54,7 +55,7 @@ export default function Profile({ navigation, profile  }) {
         }}>
           <Image
             style={styles.avatar}
-            source={{ uri: 'https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg' }}
+            source={require("../../assets/image/z6003420082592_be2d1707e3bea35ef7ceccbda2efe4e7.jpg")}
           />
           <Pressable
             onPress={() => navigation.navigate("Edit")}

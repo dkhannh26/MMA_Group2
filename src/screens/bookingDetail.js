@@ -5,17 +5,20 @@ import { Animated, Dimensions, Image, PanResponder, StyleSheet, Text, View, useW
 import { SceneMap, TabView, TabBar } from 'react-native-tab-view';
 import FirstRoute from '../components/FirstRoute';
 import SecondRoute from '../components/SecondRoute';
+import { MyMap, HotelMap } from '../screens/location';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useRoute } from '@react-navigation/native';
-import { color } from '@rneui/base';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Ionicons } from 'react-native-vector-icons';
 
 
 const DraggableForm = () => {
+    const navigation = useNavigation();
     const route = useRoute();
-    const { imageUri, price, hotelName, rating, stars, hotelType } = route.params;
+    const { imageUri, price, hotelName, rating, hotelType } = route.params;
     const renderScene = SceneMap({
-        first: () => <FirstRoute imageUri={imageUri} rating={rating} />,
+        first: () => <FirstRoute imageUri={imageUri} rating={rating} hotelName={hotelName} hotelStar={hotelType} />,
         second: () => <SecondRoute rating={rating} />,
+        third: () => <HotelMap longitude={-79.20565438663593} latitude={44.549182938258895} />,
     });
 
     const screenHeight = Dimensions.get('window').height;
@@ -58,6 +61,7 @@ const DraggableForm = () => {
     const [routes] = React.useState([
         { key: 'first', title: 'Overview' },
         { key: 'second', title: 'Review' },
+        { key: 'third', title: 'Location' },
     ]);
 
     const toggleFavorite = () => {
@@ -67,13 +71,19 @@ const DraggableForm = () => {
     return (
         <GestureHandlerRootView>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.favorite} onPress={toggleFavorite}>
+                <TouchableOpacity
+                    style={styles.back}
+                    onPress={() => navigation.goBack()} // Điều hướng quay lại
+                >
+                    <Ionicons name="arrow-back" size={30} color="white" />
+                </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.favorite} onPress={toggleFavorite}>
                     {isFavorite ? (
                         <AntDesign name="heart" size={30} color="red" />
                     ) : (
                         <AntDesign name="hearto" size={30} color="black" />
                     )}
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <View style={styles.mainContent}>
                     <Image
                         style={styles.image}
@@ -85,11 +95,11 @@ const DraggableForm = () => {
                     style={[styles.formContainer, { height: animatedHeight }]}
                     {...panResponder.panHandlers}
                 >
-                    <Text style={[styles.h1, styles.mg5, styles.box2]}>Star Pacific Sylhet</Text>
+                    <Text style={[styles.h1, styles.mg5, styles.box2]}>{hotelName}</Text>
                     <View style={{ alignItems: 'center', flexDirection: 'row', paddingLeft: 15 }}>
                         <EvilIcons name="location" size={24} color="black" />
                         <Text style={[styles.mg5, styles.txtcolor]}>
-                            Bangladesh
+                            Việt Nam
                         </Text>
                     </View>
                     <TabView
@@ -101,7 +111,7 @@ const DraggableForm = () => {
                             <TabBar
                                 {...props}
                                 style={{ backgroundColor: 'white' }}
-                                indicatorStyle={{ backgroundColor: '#FF361D', marginLeft: '16%', width: '19%' }}
+                                indicatorStyle={{ backgroundColor: '#FF361D', marginLeft: '7%', width: '19%' }}
                                 inactiveColor="#888"
                                 labelStyle={{ color: '#FF361D' }}
                             />
@@ -149,6 +159,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#555',
     },
+    back: {
+        position: 'absolute',
+        top: 50,
+        left: 40,
+        zIndex: 100,
+
+    },
     favorite: {
         position: 'absolute',
         top: 50,
@@ -158,7 +175,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: '47%',
+        height: '50%',
         position: 'absolute',
         top: 0
     },

@@ -6,6 +6,8 @@ import BookingDetail from '../screens/bookingDetail';
 import Home from '../screens/home';
 import Profile from '../screens/requestToBook';
 import { MyMap, HotelMap } from '../screens/location';
+import Hotels from '../screens/hotels';
+import Header from '../components/header';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -19,6 +21,9 @@ const HomeLayout = () => {
                 options={{ headerShown: false }}
             />
             <Stack.Screen name="Request to book" component={Profile}
+                options={{
+                    header: () => <Header headerTitle='Request to book'></Header>
+                }}
             />
         </Stack.Navigator>
     )
@@ -52,8 +57,6 @@ const AppNavigation = () => {
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'person-circle' : 'person-circle-outline';
                     }
-
-
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 tabBarActiveTintColor: 'black',
@@ -62,7 +65,7 @@ const AppNavigation = () => {
         >
             <Tab.Screen
                 name="View Hotel"
-                component={Home}
+                component={Hotels}
                 options={{
                     tabBarButton: (props) => (
                         <CustomTabButton {...props} focused={props.accessibilityState.selected} >

@@ -9,19 +9,6 @@ import { Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeLayout from '../navigation/app.navigation';
 
-const LikeButton = () => {
-    const [liked, setLiked] = useState(false);
-
-    return (
-        <Pressable onPress={() => setLiked((isLiked) => !isLiked)}>
-            <MaterialCommunityIcons
-                name={liked ? "heart" : "heart-outline"}
-                size={27}
-                color={liked ? "red" : "white"}
-            />
-        </Pressable>
-    );
-};
 
 const HomeStack = () => {
     const navigator = useNavigation()
@@ -42,20 +29,7 @@ const HomeStack = () => {
                 component={LocationDetail}
                 options={{
                     title: 'Home',
-                    header: () => <View style={styles.headerDetail}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 30 }}>
-                            <TouchableOpacity
-                                onPress={() => navigator.goBack()}
-                            >
-                                <View style={styles.backBtn}>
-                                    <AntDesign name="left" size={24} color="white" />
-                                </View>
-                            </TouchableOpacity>
-                            <View style={styles.likeBtn}>
-                                <LikeButton></LikeButton>
-                            </View>
-                        </View>
-                    </View>
+                    header: () => <></>
                 }}
             />
             <Stack.Screen

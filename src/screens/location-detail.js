@@ -1,6 +1,6 @@
 import { View, Text } from '@ant-design/react-native';
-import React from 'react';
-import { Image, ImageBackground, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar } from '@rneui/themed';
 import RestaurantIcon from '../../assets/location-icon/restaurant.png';
 import CheapIcon from '../../assets/location-icon/cheap.png';
@@ -10,19 +10,90 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useLocation, useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LocationDetail = () => {
+const LikeButton = ({ city }) => {
+    const [liked, setLiked] = useState(false);
+    const cityName = city
+    const [cities, setCities] = useState([])
+
+
+    const handleLike = async () => {
+        setLiked((liked) => !liked)
+
+        console.log(cityName)
+        const updatedCities = cities.map((city) => {
+            return (
+                city?.name === cityName
+                    ? {
+                        ...city,
+                        like: !city.like,
+                    }
+                    : city
+            )
+        });
+        console.log(updatedCities)
+        setCities(updatedCities);
+        await AsyncStorage.setItem("favCities", JSON.stringify(updatedCities));
+
+        // await AsyncStorage.setItem("favCities", JSON.stringify(FavCities));
+    }
+
+
+    const fetchExpenses = async () => {
+        const storedCities = await AsyncStorage.getItem("favCities");
+        const cities = JSON.parse(storedCities)
+        if (storedCities) {
+            setCities(cities)
+            const log = cities.filter(item => item.name === cityName)
+            setLiked(log[0].like)
+        };
+    };
+    useFocusEffect(
+        useCallback(() => {
+            fetchExpenses();
+        }, [])
+    );
+    return (
+        <Pressable onPress={() => handleLike(city)}>
+            <MaterialCommunityIcons
+                name={liked ? "heart" : "heart-outline"}
+                size={27}
+                color={liked ? "red" : "white"}
+            />
+        </Pressable>
+    );
+};
+
+const LocationDetail = ({ route }) => {
     const navigation = useNavigation()
+    const item = route.params
+    const { name, country, image, location } = route.params
+
     return (
         <ScrollView>
-            <ImageBackground source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }} resizeMode="cover" style={styles.bgImage}>
+            <View style={styles.headerDetail}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 30 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                    >
+                        <View style={styles.backBtn}>
+                            <AntDesign name="left" size={24} color="white" />
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.likeBtn}>
+                        <LikeButton city={name} />
+                    </View>
+                </View>
+            </View>
+            <ImageBackground source={{ uri: image }} resizeMode="cover" style={styles.bgImage}>
                 <View style={styles.location}>
                     <View style={styles.startBtn}>
                         Start Planning
                     </View>
-                    <Text style={{ fontWeight: 'bold', fontSize: 24, marginTop: 5 }}>
-                        France On Your Mind?
+                    <Text style={{ fontWeight: 'bold', fontSize: 22, marginTop: 5 }}>
+                        {name} <Text style={{ fontWeight: 'bold', fontSize: 21, marginTop: 5 }}>On Your Mind?</Text>
                     </Text>
                     <Text style={{ marginTop: 5, color: 'gray', fontSize: 16 }}>
                         Bulid, organize, and map {'\n'}
@@ -90,41 +161,45 @@ const LocationDetail = () => {
                 </Text>
 
                 <View flexDirection="row">
-                    <TouchableOpacity style={styles.place} onPress={() => { navigation.navigate('PlaceDetail') }} >
-
+                    <TouchableOpacity style={styles.place} onPress={async () => {
+                        await AsyncStorage.setItem('item', JSON.stringify(item))
+                        navigation.navigate('PlaceDetail')
+                    }} >
                         <Image
                             style={styles.placeImage}
-                            source={{ uri: 'https://i.pinimg.com/564x/a4/b1/f2/a4b1f26f7673507415435ef9050ea082.jpg' }}
+                            source={{ uri: location[0].image }}
                         />
                         <View>
                             <View style={styles.comment}>
-                                <Text style={{ fontWeight: 'bold', fontSize: 22, marginBottom: 7 }}>
-                                    Malaga River
+                                <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 7 }}>
+                                    {location[0].name}
                                 </Text>
                                 <Text style={{ fontSize: 16, color: 'gray' }}>
                                     <EvilIcons name="location" size={18} color="black" />
-                                    France {'  '}
+                                    {country} {'  '}
                                     <AntDesign name="star" size={18} color="#F4B537" style={{ fontSize: 15, fontWeight: 'bold' }} />
                                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>4.9</Text>
                                 </Text>
                             </View>
                         </View>
-
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.place} onPress={() => { navigation.navigate('PlaceDetail') }} >
+                    <TouchableOpacity style={styles.place} onPress={async () => {
+                        await AsyncStorage.setItem('item', JSON.stringify(item))
+                        navigation.navigate('PlaceDetail')
+                    }} >
                         <Image
                             style={styles.placeImage}
-                            source={{ uri: 'https://i.pinimg.com/564x/4a/b4/1f/4ab41f57954d4def38475350cab8b63e.jpg' }}
+                            source={{ uri: location[1].image }}
                         />
                         <View>
                             <View style={styles.comment}>
-                                <Text style={{ fontWeight: 'bold', fontSize: 22, marginBottom: 7 }}>
-                                    Monmatre
+                                <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 7 }}>
+                                    {location[1].name}
                                 </Text>
                                 <Text style={{ fontSize: 16, color: 'gray' }}>
                                     <EvilIcons name="location" size={18} color="black" />
-                                    France {'  '}
+                                    {country} {'  '}
                                     <AntDesign name="star" size={18} color="#F4B537" style={{ fontSize: 15, fontWeight: 'bold' }} />
                                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>4.9</Text>
                                 </Text>
@@ -298,6 +373,28 @@ const styles = StyleSheet.create({
         height: '55%',
         backgroundColor: '#EFEEEE',
 
+    },
+    headerDetail: {
+        position: 'absolute',
+        top: 40,
+        zIndex: 10,
+        flexDirection: 'row'
+    },
+    backBtn: {
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        borderRadius: 30,
+        width: 45,
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    likeBtn: {
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        borderRadius: 30,
+        width: 45,
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
 

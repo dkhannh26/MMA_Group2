@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Profile from '../screens/profile';
 import Setting from '../screens/setting';
@@ -6,18 +6,35 @@ import Help from '../screens/help';
 import Feedback from '../screens/feedback';
 import Edit from '../screens/edit-profile';
 import Header from '../components/header'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 
 export default function ProfileStack() {
+    const [name, setName] = useState('')
 
-    const [profile, setProfile] = useState({
-        username: 'DOTAI GROUP',
-        city: 'Can Tho',
-        email: 'abcxyz@gmail.com',
-        phone: '0123456789',
-    });
+    const { t } = useTranslation()
+    const [profile, setProfile] = useState({});
+    useEffect(() => {
+        const fecth = async () => {
+            const storedName = await AsyncStorage.getItem('loginName')
+            const name = storedName ? JSON.parse(storedName) : ''
+            setName(name)
+            setProfile(
+                {
+                    username: name,
+                    city: 'Can Tho',
+                    email: 'abcxyz@gmail.com',
+                    phone: '0123456789',
+                }
+            )
+
+        }
+        fecth()
+    }, [])
+
 
     return (
         <Stack.Navigator style={{ flex: 1 }} initialRouteName="Profile"
@@ -38,8 +55,9 @@ export default function ProfileStack() {
                 name="Setting"
                 component={Setting}
                 options={{
+                    title: t("settings"),
                     // headerShown: false,
-                    header: () => <Header headerTitle='Settings' />,
+                    header: () => <Header headerTitle={t("settings")} />,
                 }}
             />
             <Stack.Screen

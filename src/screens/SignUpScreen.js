@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar, Alert } from 'react-native';
 import CheckBox from 'expo-checkbox';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons'; // Import thêm icon từ Ionicons
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
@@ -14,8 +15,47 @@ const SignUpScreen = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false); // State for password visibility
   const [isRetypePasswordVisible, setRetypePasswordVisible] = useState(false); // State for retype password visibility
 
-  const handleSignUp = () => {
+  // const saveExpense = async () => {
+  //   if (name === '' || artist === '' || realeaseDate === ''
+  //     || genre === '' || trackCount === '' || price === '' || rating === '') {
+  //     Alert.alert("Please fill in all fields");
+  //     return
+  //   }
+  //   const newExpense = {
+  //     id: (Math.random() + 1).toString(36).substring(7),
+  //     name,
+  //     artist,
+  //     realeaseDate,
+  //     genre,
+  //     trackCount,
+  //     price,
+  //     rating,
+  //   };
+  //   const storedExpenses = await AsyncStorage.getItem("expenses");
+  //   const expenses = storedExpenses ? JSON.parse(storedExpenses) : [];
+  //   expenses.push(newExpense);
+  //   await AsyncStorage.setItem("expenses", JSON.stringify(expenses));
+  //   Alert.alert("Album saved successfully");
+  //   navigation.goBack();
+  // };
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate || realeaseDate;
+  //   setShowDatePicker(false);
+  //   setDate(currentDate);
+  // };
+
+  const handleSignUp = async () => {
     if (name && email && password && retypePassword && isSelected) {
+      const newAccount = {
+        name,
+        email,
+        password,
+      }
+      const storedAccounts = await AsyncStorage.getItem("accounts");
+      const accounts = storedAccounts ? JSON.parse(storedAccounts) : [];
+      accounts.push(newAccount)
+      await AsyncStorage.setItem("accounts", JSON.stringify(accounts));
+      Alert.alert("Account created successfully");
       navigation.navigate('Verify', { process: 'signUp' });
     } else {
       alert('Please fill all fields and accept the terms of service.');

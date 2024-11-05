@@ -9,19 +9,19 @@ const onboardingData = [
         key: '1',
         title: 'Add & Manage Cards',
         description: 'Manage your all earnings, expenses & every penny anywhere, anytime.',
-        image: require('../../assets/image/on1.jpg'), 
+        image: require('../../assets/image/on1.jpg'),
     },
     {
         key: '2',
         title: 'Explore the Outdoors',
         description: 'Discover new places and adventures with our app.',
-        image: require('../../assets/image/on2.jpg'), 
+        image: require('../../assets/image/on2.jpg'),
     },
     {
         key: '3',
         title: 'Pay Bills & Payments',
         description: 'Manage your all earnings, expenses & every penny anywhere, anytime.',
-        image: require('../../assets/image/on3.jpg'), 
+        image: require('../../assets/image/on3.jpg'),
     },
 ];
 
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
         width: 10,
         borderRadius: 5,
         marginHorizontal: 5,
+        bottom: -100
     },
     nextButton: {
         backgroundColor: 'black',

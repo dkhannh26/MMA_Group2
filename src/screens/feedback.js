@@ -7,14 +7,14 @@ export default function Feedback() {
     const [message, setMessage] = useState("");
     const [inbox, setInbox] = useState([]);
 
-const handleAddMessage = () => {
-    setInbox([...inbox, { id: inbox.length + 1, mess: message }]);
-    setMessage("")
-}
+    const handleAddMessage = () => {
+        setInbox([...inbox, { id: inbox.length + 1, mess: message }]);
+        setMessage("")
+    }
 
     return (
         <View style={styles.container}>
-            <ScrollView style={styles.messageContainer}>
+            <View style={styles.messageContainer}>
                 <View style={[styles.messageBubble, styles.adminMessage]}>
                     <Text style={styles.messageText}>Hi, how can i help you 😘 </Text>
                 </View>
@@ -27,9 +27,9 @@ const handleAddMessage = () => {
                             </View>
                         )
                     }}
-                    style={{flexGrow: 0}}
+                    style={{ flexGrow: 0 }}
                 />
-            </ScrollView>
+            </View>
             <View style={[styles.inputContainer]}>
                 <Feather name="plus-circle" size={26} color="black" />
                 <View style={styles.input}>

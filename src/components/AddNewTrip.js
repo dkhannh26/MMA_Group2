@@ -2,7 +2,7 @@ import { Button } from "@rneui/base";
 import { Icon, Input, ListItem, Overlay } from "@rneui/themed";
 import { format, parseISO } from "date-fns";
 import React, { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import tailwind from "tailwind-rn";
 import { data } from "../../data";
@@ -281,7 +281,10 @@ export default function AddNewTrip({ navigation }) {
 
       <Button
         title="Let's Start your Plan"
-        // onPress={() => navigation.navigate("My Trips")}
+        onPress={() => {
+          Alert.alert("Add trip successful")
+          navigation.navigate("home")
+        }}
         buttonStyle={styles.button}
         titleStyle={styles.buttonText}
       />

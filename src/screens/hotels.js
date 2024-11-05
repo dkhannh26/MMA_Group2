@@ -1,66 +1,35 @@
 import { Input, List } from '@ant-design/react-native';
 import Feather from '@expo/vector-icons/Feather';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Hotels = () => {
 
+    const [hotelArr, setHotels] = useState([])
+
+    const fetchHotels = async () => {
+        const storedCity = await AsyncStorage.getItem("item");
+
+        const city = JSON.parse(storedCity)
+        console.log(storedCity);
+
+        if (storedCity) {
+            setHotels(city.location[0].hotel)
+        };
+    };
+    useEffect(() => {
+        fetchHotels();
+    }, []);
+
+
     const [searchQuery, setSearchQuery] = useState('');
-    const hotels = [
-        {
-            id: '1',
-            name: 'Style Lagoon Residences And Suites',
-            image: 'https://randomuser.me/api/portraits/men/8.jpg',
-            price: '$1450',
-            rating: '2.0',
-            type: '2-star hotel',
-        },
-        {
-            id: '2',
-            name: 'MEME Lagoon Residences And Suites',
-            image: 'https://randomuser.me/api/portraits/men/8.jpg',
-            price: '$1450',
-            rating: '5.0',
-            type: '2-star hotel',
-        },
-        {
-            id: '3',
-            name: 'Style Lagoon Residences And Suites',
-            image: 'https://randomuser.me/api/portraits/men/8.jpg',
-            price: '$1450',
-            rating: '1.0',
-            type: '2-star hotel',
-        },
-        {
-            id: '4',
-            name: 'Style Lagoon Residences And Suites',
-            image: 'https://randomuser.me/api/portraits/men/8.jpg',
-            price: '$1450',
-            rating: '4.0',
-            type: '2-star hotel',
-        },
-        {
-            id: '5',
-            name: 'Style Lagoon Residences And Suites',
-            image: 'https://randomuser.me/api/portraits/men/8.jpg',
-            price: '$1450',
-            rating: '4.0',
-            type: '2-star hotel',
-        },
-        {
-            id: '6',
-            name: 'Style Lagoon Residences And Suites',
-            image: 'https://randomuser.me/api/portraits/men/8.jpg',
-            price: '$1450',
-            rating: '4.0',
-            type: '2-star hotel',
-        },
-    ]
-    const filteredHotels = hotels.filter(hotel =>
+
+    const filteredHotels = hotelArr.filter(hotel =>
         hotel.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     const renderStars = (rating) => {
@@ -94,7 +63,7 @@ const Hotels = () => {
                 <Text style={styles.hotelName}>{hotel.name}</Text>
                 <View style={styles.ratingContainer}>
                     <Text style={styles.rating}>{hotel.rating}</Text>
-                    <Text style={styles.stars}>{renderStars(hotel.rating)}</Text>
+                    <Text style={styles.stars}>{renderStars(4.5)}</Text>
                     <Text style={styles.hotelType}>{hotel.type}</Text>
                 </View>
             </View>
@@ -106,6 +75,7 @@ const Hotels = () => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.bg}>
                 <FlatList
+                    keyExtractor={item => item.name + ''}
                     ListHeaderComponent={(
                         <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
                             <List.Item style={{ borderRadius: 30 }}>
@@ -128,7 +98,7 @@ const Hotels = () => {
                                     imageUri: item.image,
                                     price: item.price,
                                     hotelName: item.name,
-                                    rating: item.rating,
+                                    rating: '4.0',
                                     stars: item.stars,
                                     hotelType: item.type,
                                 });
@@ -137,7 +107,6 @@ const Hotels = () => {
                             <HotelCard hotel={item} />
                         </TouchableOpacity>
                     )}
-                    keyExtractor={(item) => item.id}
                 />
             </View>
         </SafeAreaView>

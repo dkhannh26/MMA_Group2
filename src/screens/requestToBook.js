@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Image, Text, View, ScrollView, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import PaymentModal from '../components/ModalPayment';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 const RequestToBook = () => {
     const route = useRoute();
-    const { imageUri, rating } = route.params;
+    const { imageUri, rating, hotelName, hotelStar } = route.params;
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -39,8 +39,8 @@ const RequestToBook = () => {
                     />
                 </View>
                 <View style={styles.infoContainer}>
-                    <Text style={styles.rating}>Star Pacific Sylhet</Text>
-                    <Text style={styles.name}>2-star hotel</Text>
+                    <Text style={styles.rating}>{hotelName}</Text>
+                    <Text style={styles.name}>{hotelStar}</Text>
                     <Text style={styles.feedback}>{renderStars(rating)}</Text>
                 </View>
             </View>

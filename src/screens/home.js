@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, ScrollView, TouchableOpacity, SectionList } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
@@ -9,10 +9,30 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Image } from '@rneui/base';
 import { Input, List } from '@ant-design/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { cities } from '../data';
 
 const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        AsyncStorage.setItem('favCities', JSON.stringify(cities))
+        _retrieveData()
+    }, [])
+
+
+    _retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('loginName');
+            if (value !== null) {
+                setUser(JSON.parse(value))
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    };
 
     const slider = [
         {
@@ -47,7 +67,7 @@ const Home = () => {
                         />
                         <View style={{ marginLeft: 20 }}>
                             <Text style={[styles.headerText, { fontSize: 20 }]}>
-                                Hi Mike
+                                Hi {user}
                             </Text>
                             <Text style={[styles.headerText, { fontWeight: 'bold' }]}>
                                 Good afternoon

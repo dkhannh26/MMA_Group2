@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, Image, Pressable, ScrollView } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LikeButton = () => {
     const [liked, setLiked] = useState(false);
-
     return (
         <Pressable onPress={() => setLiked((isLiked) => !isLiked)}>
             <MaterialCommunityIcons
@@ -22,6 +22,17 @@ const LikeButton = () => {
 
 const Save = () => {
     const navigator = useNavigation();
+    const [likedCities, setLikedCities] = useState([])
+
+    useEffect(() => {
+        const fecth = async () => {
+            const storedCities = await AsyncStorage.getItem("favCities");
+            const cities = JSON.parse(storedCities)
+            const likedCities = cities.filter(item => item.like === true)
+            setLikedCities(likedCities)
+        }
+        fecth()
+    }, [likedCities, navigator])
     return (
         <View style={{ backgroundColor: '#F7F6F0', flex: 1 }}>
             <ScrollView >
@@ -42,128 +53,45 @@ const Save = () => {
 
                 {/* location list */}
                 <View style={styles.cardList}>
-                    <View style={[styles.cardItem]} >
-                        <View style={{ height: '60%' }}>
-                            <View style={styles.likeBtnContainer}>
-                                <LikeButton></LikeButton>
-                            </View>
-                            <View style={styles.star}>
-                                <Text style={{ color: 'white', fontWeight: 700, fontSize: 20 }}>
-                                    <AntDesign name="star" size={20} color="#F4B537" style={{ fontWeight: 'bold' }} />
-                                    4.9
-                                </Text>
-                            </View>
-                            <Image
-                                style={styles.cardImage}
-                                source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }}
-                            />
-                        </View>
+                    {
+                        likedCities.map(item => {
+                            return (
+                                <View key={item.name} style={[styles.cardItem]} >
+                                    <View style={{ height: '60%' }}>
+                                        {/* <View style={styles.likeBtnContainer}>
+                                            <LikeButton></LikeButton>
+                                        </View> */}
+                                        <View style={styles.star}>
+                                            <Text style={{ color: 'white', fontWeight: 700, fontSize: 20 }}>
+                                                <AntDesign name="star" size={20} color="#F4B537" style={{ fontWeight: 'bold' }} />
+                                                4.9
+                                            </Text>
+                                        </View>
+                                        <Image
+                                            style={styles.cardImage}
+                                            source={{ uri: item.image }}
+                                        />
+                                    </View>
 
-                        <View style={styles.cardScript}>
-                            <View style={{ justifyContent: 'center', alignItems: "center", flexDirection: "row", position: 'absolute', top: 15, right: 20 }}>
-                                <EvilIcons name="location" size={18} color="black" />
-                                <Text style={{ color: 'gray' }}>
-                                    France
-                                </Text>
-                            </View>
-                            <View style={{ width: '60%' }}>
-                                <Text style={{ fontSize: 28, fontWeight: 600, marginVertical: 1 }}>Paris</Text>
-                                <Text style={{ color: '#64646E', fontSize: 18 }}>Casual Paris with palm frond covered roof...</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={[styles.cardItem]} >
-                        <View style={{ height: '60%' }}>
-                            <View style={styles.likeBtnContainer}>
-                                <LikeButton></LikeButton>
-                            </View>
-                            <View style={styles.star}>
-                                <Text style={{ color: 'white', fontWeight: 700, fontSize: 20 }}>
-                                    <AntDesign name="star" size={20} color="#F4B537" style={{ fontWeight: 'bold' }} />
-                                    4.9
-                                </Text>
-                            </View>
-                            <Image
-                                style={styles.cardImage}
-                                source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }}
-                            />
-                        </View>
-
-                        <View style={styles.cardScript}>
-                            <View style={{ justifyContent: 'center', alignItems: "center", flexDirection: "row", position: 'absolute', top: 15, right: 20 }}>
-                                <EvilIcons name="location" size={18} color="black" />
-                                <Text style={{ color: 'gray' }}>
-                                    France
-                                </Text>
-                            </View>
-                            <View style={{ width: '60%' }}>
-                                <Text style={{ fontSize: 28, fontWeight: 600, marginVertical: 1 }}>Paris</Text>
-                                <Text style={{ color: '#64646E', fontSize: 18 }}>Casual Paris with palm frond covered roof...</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={[styles.cardItem]} >
-                        <View style={{ height: '60%' }}>
-                            <View style={styles.likeBtnContainer}>
-                                <LikeButton></LikeButton>
-                            </View>
-                            <View style={styles.star}>
-                                <Text style={{ color: 'white', fontWeight: 700, fontSize: 20 }}>
-                                    <AntDesign name="star" size={20} color="#F4B537" style={{ fontWeight: 'bold' }} />
-                                    4.9
-                                </Text>
-                            </View>
-                            <Image
-                                style={styles.cardImage}
-                                source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }}
-                            />
-                        </View>
-
-                        <View style={styles.cardScript}>
-                            <View style={{ justifyContent: 'center', alignItems: "center", flexDirection: "row", position: 'absolute', top: 15, right: 20 }}>
-                                <EvilIcons name="location" size={18} color="black" />
-                                <Text style={{ color: 'gray' }}>
-                                    France
-                                </Text>
-                            </View>
-                            <View style={{ width: '60%' }}>
-                                <Text style={{ fontSize: 28, fontWeight: 600, marginVertical: 1 }}>Paris</Text>
-                                <Text style={{ color: '#64646E', fontSize: 18 }}>Casual Paris with palm frond covered roof...</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={[styles.cardItem]} >
-                        <View style={{ height: '60%' }}>
-                            <View style={styles.likeBtnContainer}>
-                                <LikeButton></LikeButton>
-                            </View>
-                            <View style={styles.star}>
-                                <Text style={{ color: 'white', fontWeight: 700, fontSize: 20 }}>
-                                    <AntDesign name="star" size={20} color="#F4B537" style={{ fontWeight: 'bold' }} />
-                                    4.9
-                                </Text>
-                            </View>
-                            <Image
-                                style={styles.cardImage}
-                                source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }}
-                            />
-                        </View>
-
-                        <View style={styles.cardScript}>
-                            <View style={{ justifyContent: 'center', alignItems: "center", flexDirection: "row", position: 'absolute', top: 15, right: 20 }}>
-                                <EvilIcons name="location" size={18} color="black" />
-                                <Text style={{ color: 'gray' }}>
-                                    France
-                                </Text>
-                            </View>
-                            <View style={{ width: '60%' }}>
-                                <Text style={{ fontSize: 28, fontWeight: 600, marginVertical: 1 }}>Paris</Text>
-                                <Text style={{ color: '#64646E', fontSize: 18 }}>Casual Paris with palm frond covered roof...</Text>
-                            </View>
-                        </View>
-                    </View>
+                                    <View style={styles.cardScript}>
+                                        <View style={{ justifyContent: 'center', alignItems: "center", flexDirection: "row", position: 'absolute', top: 15, right: 20 }}>
+                                            <EvilIcons name="location" size={18} color="black" />
+                                            <Text style={{ color: 'gray' }}>
+                                                {item.country}
+                                            </Text>
+                                        </View>
+                                        <View style={{ width: '60%' }}>
+                                            <Text style={{ fontSize: 28, fontWeight: 600, marginVertical: 1 }}>{item.name}</Text>
+                                            <Text style={{ color: '#64646E', fontSize: 18 }}>Casual with palm frond covered roof...</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            )
+                        })
+                    }
+                    {
+                        likedCities.length === 0 ? <Text style={{ textAlign: 'center' }}>No data</Text> : ""
+                    }
                 </View>
             </ScrollView>
         </View>

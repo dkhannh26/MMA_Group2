@@ -10,8 +10,9 @@ import Animated, {
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import { useNavigation } from "@react-navigation/native";
+import { cities } from "../data";
 
-function Item({ index, perfomSwipe, color, length }) {
+function Item({ index, perfomSwipe, color, length, item }) {
     var offsetX = useSharedValue(0);
     var offsetY = useSharedValue(0);
 
@@ -57,21 +58,21 @@ function Item({ index, perfomSwipe, color, length }) {
         <GestureDetector gesture={panGesture}>
             <Animated.View style={[styles.box, animatedStyles]}>
                 <Image
-                    source={{ uri: 'https://ik.imagekit.io/tvlk/blog/2022/06/thap-tokyo-nhat-ban-2.jpg?tr=c-at_max?tr=c-at_max' }}
+                    source={{ uri: item.image }}
                     style={styles.image}
                 />
                 <TouchableOpacity
-                    onPress={() => { navigator.navigate('LocationDetail') }}
+                    onPress={() => { navigator.navigate('LocationDetail', item) }}
                 >
                     <View style={styles.location}>
                         <View>
                             <Text style={{ paddingLeft: 5, fontSize: 24, fontWeight: 'bold' }}>
-                                Paris
+                                {item.name}
                             </Text>
                             <View style={{ display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "row" }}>
                                 <EvilIcons name="location" size={18} color="black" />
                                 <Text style={{ color: 'gray' }}>
-                                    France
+                                    {item.country}
                                 </Text>
                             </View>
 
@@ -85,14 +86,8 @@ function Item({ index, perfomSwipe, color, length }) {
 }
 
 export default function Carousel() {
-    const [data, setData] = useState([
-        "#59B4C3",
-        "#40A2E3",
-        "#FDBF60",
-        "#EFF396",
-        "#9F70FD",
-        "#74E291",
-    ]);
+
+    const [data, setData] = useState(cities);
 
     function perfomSwipe() {
         setData((oldData) => {
@@ -109,12 +104,12 @@ export default function Carousel() {
                 {data.map((item, index) => {
                     return (
                         <Item
-                            key={item}
+                            key={item.name}
                             index={index}
                             perfomSwipe={perfomSwipe}
                             color={item}
                             length={data.length}
-
+                            item={item}
                         />
                     );
                 })}
@@ -149,7 +144,7 @@ var styles = StyleSheet.create({
         backgroundColor: 'white',
         position: 'absolute',
         bottom: 20,
-        width: 160,
+        width: 180,
         height: 70,
         left: '50%',
         transform: [

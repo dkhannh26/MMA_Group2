@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar, Alert } from 'react-native';
 import CheckBox from 'expo-checkbox';
 import { useNavigation } from '@react-navigation/native';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons'; // Import thêm icon từ Ionicons
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
     const navigation = useNavigation();
@@ -14,9 +15,21 @@ const LoginScreen = () => {
     const [isSelected, setSelection] = useState(false);
     const [isPasswordVisible, setPasswordVisible] = useState(false); // Trạng thái để quản lý hiển thị mật khẩu
 
-    const handleLogin = () => {
-        if (email && password) {
-            navigation.navigate('Verified')
+    const handleLogin = async () => {
+        if ((email && password) || email === 'z') {
+            const storedAccounts = await AsyncStorage.getItem("accounts");
+            const accounts = storedAccounts ? JSON.parse(storedAccounts) : [];
+            let checkedAccount = false
+
+            for (let account of accounts) {
+                if (email === account.email && password === account.password) {
+                    checkedAccount = true
+                    await AsyncStorage.setItem("loginName", JSON.stringify(account.name));
+                    navigation.navigate('Verified')
+                }
+            }
+
+            if (!checkedAccount) Alert.alert("Account is not existed!!")
         } else {
             alert('Please fill in all fields.');
         }
@@ -58,15 +71,6 @@ const LoginScreen = () => {
             </View>
 
             <View style={styles.checkboxContainer}>
-                <View style={styles.checkboxLabel}>
-                    <CheckBox
-                        value={isSelected}
-                        onValueChange={setSelection}
-                        style={styles.checkbox}
-                    />
-                    <Text>Keep me signed in</Text>
-                </View>
-
                 <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
                     <Text style={styles.forgotPassword}>Forgot password?</Text>
                 </TouchableOpacity>
