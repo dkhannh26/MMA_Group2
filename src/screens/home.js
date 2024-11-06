@@ -37,20 +37,36 @@ const Home = () => {
     const slider = [
         {
             id: 1,
-            url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/07/a8/2c/caption.jpg?w=1400&h=1400&s=1'
+            url: 'https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/04/anh-ha-noi.jpg',
+            location:'Hồ Hoàn Kiếm, Hà Nội',
+            des: 'Hồ Hoàn Kiếm còn được gọi là Hồ Gươm... ',
+            name: 'Chí Nguyên',
+            views: '',
         },
         {
             id: 2,
-            url: 'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg'
+            url: 'https://i2.ex-cdn.com/crystalbay.com/files/content/2024/08/30/van-mieu-quoc-tu-giam-1-1012.jpg',
+            location:'Văn Miếu - Quốc Tử Giám',
+            des: 'Văn Miếu – Quốc Tử Giám là quần thể di tích đa dạng...',
+            name: 'Thanh Sơn',
+            views: '',
         },
         {
             id: 3,
-            url: 'https://www.vietmytravel.com/wp-content/uploads/2019/04/h%E1%BB%93-ho%C3%A0n-ki%E1%BA%BFm_vietmytravel_du-l%E1%BB%8Bch-h%C3%A0-n%E1%BB%99i-e1554716923715.jpg'
+            url: 'https://vietnamdailytour.vn/wp-content/uploads/2022/08/cau-rong-da-nang.jpg',
+            location:'Cầu Rồng, Đà Nẵng',
+            des: 'Cầu Rồng là cây cầu thứ 6 và là cây cầu mới nhất...',
+            name: 'Đức Thịnh',
+            views: '',
         },
         {
             id: 4,
-            url: 'https://asiaholiday.com.vn/pic/Tour/Tour%20Du%20lich%20Ha%20Long%20(5)_2261_HasThumb.jpg'
-        }
+            url: 'https://vnpay.vn/s1/statics.vnpay.vn/2023/11/0idnltvm0p2m1698943217828.png',
+            location:'Bà Nà Hills, Đà Nẵng',
+            des: 'Bà Nà là khu bảo tồn thiên nhiên đồng thời là quần thể du lịch...',
+            name: 'Thanh Duy',
+            views: '',
+        },
     ]
 
 
@@ -123,7 +139,7 @@ const Home = () => {
 
 
                 <View style={styles.feature}>
-                    <Text style={styles.titleText}>Featured Guild Users</Text>
+                    <Text style={styles.titleText}>Featured Guide Users</Text>
                     <View style={styles.slider}>
                         <FlatList
                             data={slider}
@@ -139,18 +155,18 @@ const Home = () => {
                                         >
                                             <View style={styles.comment}>
                                                 <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 7 }}>
-                                                    Malaga, Spain
+                                                   {item.location}
                                                 </Text>
                                                 <Text style={{ fontSize: 14, color: 'gray', marginBottom: 4 }}>
-                                                    Our a visit to Malaga was part of a cruise of the Western Med...
+                                                {item.des}
                                                 </Text>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                                                     <Avatar
                                                         size={42}
                                                         rounded
-                                                        source={{ uri: "https://randomuser.me/api/portraits/men/8.jpg" }}
+                                                        source={{ uri: "https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png" }}
                                                     />
-                                                    <Text style={{ marginLeft: 5, fontSize: 17, fontWeight: 700 }}>Alan Watt</Text>
+                                                    <Text style={{ marginLeft: 5, fontSize: 17, fontWeight: 700 }}>{item.name}</Text>
                                                     <Text style={{ color: 'gray' }}>
                                                         <Entypo name="dot-single" size={18} color="black" />
                                                         5,3K views

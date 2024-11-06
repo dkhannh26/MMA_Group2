@@ -283,7 +283,7 @@ export default function AddNewTrip({ navigation }) {
         title="Let's Start your Plan"
         onPress={() => {
           Alert.alert("Add trip successful")
-          navigation.navigate("home")
+          navigation.navigate("HomeSreen")
         }}
         buttonStyle={styles.button}
         titleStyle={styles.buttonText}

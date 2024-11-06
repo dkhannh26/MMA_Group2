@@ -26,8 +26,8 @@ const SplashScreen = ({ navigation }) => {
         style={styles.icon}
       />
       <View style={styles.titleContainer}>
-        <Text style={styles.fillo}>Fillo</Text>
-        <Text style={styles.tripo}>Tripo</Text>
+        <Text style={styles.fillo}>Travel</Text>
+        <Text style={styles.tripo}>Dotai</Text>
       </View>
     </Animated.View>
   );
